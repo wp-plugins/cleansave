@@ -13,7 +13,7 @@ if( !class_exists( 'WP_Http' ) )
 
 
 // Plug-in parameters (do not change these)
-$cleansave_plugin_name       = 'cleansave-wp';
+$cleansave_plugin_name       = 'cleansave';
 $cleansave_plugin_file       = $cleansave_plugin_name . '/cleansave.php';
 $cleansave_plugin_attr       = 'plugin';
 $cleansave_print_attr        = 'print';
