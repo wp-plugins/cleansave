@@ -161,7 +161,7 @@ Visit us at:
 
 1. CleanSave allows you to insert Save, Print, Email and PDF buttons into your content anywhere you like from a large number of button styles.
 2. CleanSave reformats your article content in order to make it easier to read.  Users can edit article content further to get the output they desire.
-3. Users can then generate a PDF, save the content to their Google Docs or Dropbox accounts (as PDF or text), email it to their friends or sent it to the printer.
+3. Users can then generate a PDF, save the content to their Google Docs or Dropbox accounts (as PDF or text), email it to their friends or send it to the printer.
 
 
 == Changelog ==
