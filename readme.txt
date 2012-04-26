@@ -1,10 +1,10 @@
 ﻿=== CleanSave    ===
 Contributors: johncadams, lucascolin
 Donate link: http://www.formatdynamics.com/aboutus-contactus.php
-Tags: pdf, print, printing, widget, email, save, optimize, output, edit, editing, eco-friendly, environmental, sustainable, reader, iPad, tablet, saving, ecological, eco, ink, social, output, plugin, saver, dropbox, google docs, rtf, readlater, instapaper, cloud
+Tags: pdf, print, printing, widget, email, save, optimize, output, edit, editing, eco-friendly, environmental, sustainable, reader, iPad, tablet, saving, ecological, eco, ink, social, output, plugin, saver, dropbox, google docs, rtf, readlater, instapaper, cloud, google drive
 Requires at least: 2.0.2
-Tested up to: 3.3.1
-Stable tag: 1.0.0
+Tested up to: 3.3.2
+Stable tag: 1.1.0
   
 CleanSave – Save web page content to Google Docs, Dropbox, print, PDF, and email
 
@@ -165,4 +165,11 @@ Visit us at:
 
 
 == Changelog ==
+= 1.1.0 =
+* Added support for tag page type
+* Added support for excluding specific page IDs
+* Added support for multiple print buttons per page
+* Workaround for Google Analytics for WordPress plug-in defect
+
 = 1.0.0 =
+Initial version
