@@ -2,8 +2,8 @@
 /*
 Plugin Name: CleanSave
 Plugin URI: http://www.formatdynamics.com
-Description: Save web page content to Google Docs, Dropbox, print, PDF, and email
-Version: 1.1.1
+Description: Save web page content to Box.net, Google Docs, Dropbox, print, PDF, and email
+Version: 1.1.5
 Author: Format Dynamics
 Author URI: http://www.formatdynamics.com
 */
@@ -189,7 +189,8 @@ function cleansave_add_settings_field_button_color() {
     printf("<div id='viewEmailImg' style='%s'><div id='cpf-viewbox-sidebar-button-email' class='cpf-viewbox-sidebar-button'></div></div>", ($emailViewer ? "" : "display:none"));
     printf("<div id='viewSaveImg'  style='%s'>",                                                                                           ($saveViewer  ? "" : "display:none"));
     printf(   "<div id='cpf-viewbox-sidebar-button-dropbox'    class='cpf-viewbox-sidebar-button'></div>");
-    printf(   "<div id='cpf-viewbox-sidebar-button-googledocs' class='cpf-viewbox-sidebar-button'></div>");
+    printf(   "<div id='cpf-viewbox-sidebar-button-googleDocs' class='cpf-viewbox-sidebar-button'></div>");
+    printf(   "<div id='cpf-viewbox-sidebar-button-boxDotNet'  class='cpf-viewbox-sidebar-button'></div>");
     printf("</div></div></td>");
 }
 
@@ -566,7 +567,7 @@ function cleansave_wp_head() {
     if ($showPrintBtn) $buttons .= ',print';
     if ($showPdfBtn  ) $buttons .= ',pdf';
     if ($showEmailBtn) $buttons .= ',email';
-    if ($showSaveBtn ) $buttons .= ',dropbox,googleDocs';
+    if ($showSaveBtn ) $buttons .= ',dropbox,googleDocs,boxDotNet';
 
     $buttons = sprintf("&buttons=help,%s,%s,%s", substr($buttons,1),$cleansave_edit_buttons,$cleansave_social_buttons);
     
