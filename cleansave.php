@@ -3,7 +3,7 @@
 Plugin Name: CleanSave
 Plugin URI: http://www.formatdynamics.com
 Description: Save web page content to Google Docs, Dropbox, print, PDF, and email
-Version: 1.1.0
+Version: 1.1.1
 Author: Format Dynamics
 Author URI: http://www.formatdynamics.com
 */
@@ -33,7 +33,7 @@ $cleansave_style_url         = $cleansave_base_url . '/media/pfviewer/css/screen
 $cleansave_def_logo_url      = $cleansave_base_url . '/media/logos/CleanSave.png';
 $cleansave_def_btn_style     = 'Btn_white';
 $cleansave_def_btn_placement = 'tr';
-
+$cleansaveDebug              = false;
 
 
 // Display the options page
@@ -64,9 +64,9 @@ function cleansave_add_settings_section() {
     make it your own.  You can use your logo and choose from a variety of button styles or use your own 
     buttons. You may also select the location within the page where the button(s) are placed.</p>
     
-    <p>You may select which page types that the button(s) should appear on.  You may also exclude specific
+    <p>You may select which page types that the button(s) should appear on.  <!-- You may also exclude specific
     pages by entering their comma separated IDs.  NOTE: The ID is visible in the URL when you navigate to
-    that page.</p>
+    that page.--></p>
     
     <p>If you would like to place the button(s) in a custom position please see installation instructions.
     Also, if you choose to use Google Analytics custom event tracking for CleanSave your site <b>MUST</b>
@@ -184,12 +184,13 @@ function cleansave_add_settings_field_button_color() {
     printf("Viewer Preview<br /><div style='border:1px solid #BBB; padding:10px; text-align:center; width:60px;'>");
     printf("<div class='cpf-viewbox-sidebar-buttonGrp'>");
     printf("<div class='cpf-viewbox-sidebar-buttonGrp-heading'>output</div>");
-    printf("<div id='viewPrintImg' style='%s'><div id='cpf-viewbox-sidebar-button-print'      class='cpf-viewbox-sidebar-button'></div></div>", ($printViewer ? "" : "display:none"));
-    printf("<div id='viewPdfImg'   style='%s'><div id='cpf-viewbox-sidebar-button-pdf'        class='cpf-viewbox-sidebar-button'></div></div>", ($pdfViewer   ? "" : "display:none"));
-    printf("<div id='viewEmailImg' style='%s'><div id='cpf-viewbox-sidebar-button-email'      class='cpf-viewbox-sidebar-button'></div></div>", ($emailViewer ? "" : "display:none"));
-    printf("<div id='viewSaveImg'  style='%s'><div id='cpf-viewbox-sidebar-button-dropbox'    class='cpf-viewbox-sidebar-button'></div>",       ($saveViewer  ? "" : "display:none"));
-    printf(                                  "<div id='cpf-viewbox-sidebar-button-googledocs' class='cpf-viewbox-sidebar-button'></div></div>");
-    printf("</div></td>");
+    printf("<div id='viewPrintImg' style='%s'><div id='cpf-viewbox-sidebar-button-print' class='cpf-viewbox-sidebar-button'></div></div>", ($printViewer ? "" : "display:none"));
+    printf("<div id='viewPdfImg'   style='%s'><div id='cpf-viewbox-sidebar-button-pdf'   class='cpf-viewbox-sidebar-button'></div></div>", ($pdfViewer   ? "" : "display:none"));
+    printf("<div id='viewEmailImg' style='%s'><div id='cpf-viewbox-sidebar-button-email' class='cpf-viewbox-sidebar-button'></div></div>", ($emailViewer ? "" : "display:none"));
+    printf("<div id='viewSaveImg'  style='%s'>",                                                                                           ($saveViewer  ? "" : "display:none"));
+    printf(   "<div id='cpf-viewbox-sidebar-button-dropbox'    class='cpf-viewbox-sidebar-button'></div>");
+    printf(   "<div id='cpf-viewbox-sidebar-button-googledocs' class='cpf-viewbox-sidebar-button'></div>");
+    printf("</div></div></td>");
 }
 
 
@@ -379,6 +380,7 @@ function cleansave_add_settings_field_tags() {
     printf( "<option value='exclude' %s>Exclude</option>", (!$isChecked ?"selected='selected'":""));
     printf( "</select>");
     printf( "<i> - i.e. is_tag()</i>");
+    printf("<tr><td colspan='3'><h2>Google Analytics</h2><hr /></td></tr>");
 }
 
 
@@ -389,7 +391,7 @@ function cleansave_add_settings_field_excludes() {
     $excludes    = $options['PagesExcludes'];
     
     printf( "<input type='text' id='plugin_excludes' name='%s[PagesExcludes]' value='%s' /><br>\n", $cleansave_options_name, $excludes);
-    printf("<tr><td colspan='3'><h2>Google Analytics</h2><hr /></td></tr>");  
+//  printf("<tr><td colspan='3'><h2>Google Analytics</h2><hr /></td></tr>");  
 }
 
 
@@ -449,7 +451,7 @@ function cleansave_is_pagetype() {
     $pages         = $options['PagesInclude'];
     $tags          = $options['TagsInclude'];
     $excludes      = $options['PagesExcludes'];
-    
+/*    
     if (isset($excludes)) {
        $IDs = explode(",", $excludes);
        $len = count($IDs);
@@ -457,7 +459,7 @@ function cleansave_is_pagetype() {
           if ($page_id == $IDs[$i]) return false;
        }
     }
-    
+*/    
     $isHomeChecked = $homepage =='include' || !isset($homepage);
     $isFrntChecked = $frontpage=='include' || !isset($frontpage);
     $isCatgChecked = $category =='include' || !isset($category);
@@ -491,13 +493,13 @@ function cleansave_add_content($content) {
     $showPrintBtn    = $options['PrintInclude']=='both' || !isset($options['PrintInclude']);
     $showPdfBtn      = $options['PDFInclude'  ]=='both' || !isset($options['PDFInclude'  ]);
     $showEmailBtn    = $options['EmailInclude']=='both' || !isset($options['EmailInclude']);
+    $postId          = isset($post) && isset($post->ID) ? sprintf("'post-%s'", $post->ID) : ""; 
     
     if (!isset($ButtonPlacement)) {
        $ButtonPlacement = $cleansave_def_btn_placement;
     }
     
     
-	$postId = "'post-$post->ID'";
 	if (cleansave_is_pagetype()) {
 	   if (!isset($buttonStyle)) {
             $buttonStyle = $cleansave_def_btn_style;
@@ -542,12 +544,14 @@ function cleansave_add_content($content) {
 
 // Adds the CleanPrint script tags to the head section
 function cleansave_wp_head() {
+    global $page_id;
     global $cleansave_options_name;
     global $cleansave_loader_url;
     global $cleansave_publisher_key;
 	global $cleansave_def_logo_url;
     global $cleansave_edit_buttons;
     global $cleansave_social_buttons;
+    global $cleansaveDebug;
    
 	$options      = get_option($cleansave_options_name);
 	$GASetting    = $options['GASetting'];
@@ -559,15 +563,18 @@ function cleansave_wp_head() {
     $showSaveBtn  = !isset($options['SaveInclude' ]) || $options['SaveInclude' ]!='exclude';
     $buttons      = '';
 
-    if (!$showPrintBtn || !$showPdfBtn || !$showEmailBtn || !$showSaveBtn) {
-       if ($showPrintBtn) $buttons .= ',print';
-       if ($showPdfBtn  ) $buttons .= ',pdf';
-       if ($showEmailBtn) $buttons .= ',email';
-       if ($showSaveBtn ) $buttons .= ',dropbox,googleDocs';
+    if ($showPrintBtn) $buttons .= ',print';
+    if ($showPdfBtn  ) $buttons .= ',pdf';
+    if ($showEmailBtn) $buttons .= ',email';
+    if ($showSaveBtn ) $buttons .= ',dropbox,googleDocs';
 
-       $buttons = sprintf("&buttons=help,%s,%s,%s", substr($buttons,1),$cleansave_edit_buttons,$cleansave_social_buttons);
-    }
-
+    $buttons = sprintf("&buttons=help,%s,%s,%s", substr($buttons,1),$cleansave_edit_buttons,$cleansave_social_buttons);
+    
+    if ($cleansaveDebug) {
+		printf("\n\n\n<!-- CleanSave Debug\n\t\t%s\n\t\tpage_id:%s, home:%d, front:%d, category:%d, single:%d, page:%d, tag:%d\n-->\n\n\n",
+					               http_build_query($options,"","\n\t\t"), $page_id, is_home(), is_front_page(), is_category(), is_single(), is_page(), is_tag());
+	}
+		
     printf( "<script id='cpf_wp' type='text/javascript'>\n");
     printf( "   function CleanSave(postId) {\n");
     printf( "   	CleanPrintPrintHtml(null,postId);\n");
@@ -683,7 +690,7 @@ function cleansave_admin_init() {
     add_settings_field     ('plugin_posts',           '<strong>Posts:</strong>',                     'cleansave_add_settings_field_posts',         $cleansave_plugin_name, 'plugin_main');
     add_settings_field     ('plugin_pages',           '<strong>Pages:</strong>',                     'cleansave_add_settings_field_pages',         $cleansave_plugin_name, 'plugin_main');
     add_settings_field     ('plugin_tags',            '<strong>Tags:</strong>',                      'cleansave_add_settings_field_tags',          $cleansave_plugin_name, 'plugin_main');
-    add_settings_field     ('plugin_excludes',        '<strong>Excluded Page IDs:</strong>',         'cleansave_add_settings_field_excludes',      $cleansave_plugin_name, 'plugin_main');
+//  add_settings_field     ('plugin_excludes',        '<strong>Excluded Page IDs:</strong>',         'cleansave_add_settings_field_excludes',      $cleansave_plugin_name, 'plugin_main');
     add_settings_field     ('plugin_gaOption',        '<strong>CleanPrint Event Tracking:</strong>', 'cleansave_add_settings_field_ga',            $cleansave_plugin_name, 'plugin_main');
 }
 
