@@ -184,12 +184,13 @@ function cleansave_add_settings_field_button_color() {
     printf("Viewer Preview<br /><div style='border:1px solid #BBB; padding:10px; text-align:center; width:60px;'>");
     printf("<div class='cpf-viewbox-sidebar-buttonGrp'>");
     printf("<div class='cpf-viewbox-sidebar-buttonGrp-heading'>output</div>");
-    printf("<div id='viewPrintImg' style='%s'><div id='cpf-viewbox-sidebar-button-print'      class='cpf-viewbox-sidebar-button'></div></div>", ($printViewer ? "" : "display:none"));
-    printf("<div id='viewPdfImg'   style='%s'><div id='cpf-viewbox-sidebar-button-pdf'        class='cpf-viewbox-sidebar-button'></div></div>", ($pdfViewer   ? "" : "display:none"));
-    printf("<div id='viewEmailImg' style='%s'><div id='cpf-viewbox-sidebar-button-email'      class='cpf-viewbox-sidebar-button'></div></div>", ($emailViewer ? "" : "display:none"));
-    printf("<div id='viewSaveImg'  style='%s'><div id='cpf-viewbox-sidebar-button-dropbox'    class='cpf-viewbox-sidebar-button'></div>",       ($saveViewer  ? "" : "display:none"));
-    printf(                                  "<div id='cpf-viewbox-sidebar-button-googledocs' class='cpf-viewbox-sidebar-button'></div></div>");
-    printf("</div></td>");
+    printf("<div id='viewPrintImg' style='%s'><div id='cpf-viewbox-sidebar-button-print' class='cpf-viewbox-sidebar-button'></div></div>", ($printViewer ? "" : "display:none"));
+    printf("<div id='viewPdfImg'   style='%s'><div id='cpf-viewbox-sidebar-button-pdf'   class='cpf-viewbox-sidebar-button'></div></div>", ($pdfViewer   ? "" : "display:none"));
+    printf("<div id='viewEmailImg' style='%s'><div id='cpf-viewbox-sidebar-button-email' class='cpf-viewbox-sidebar-button'></div></div>", ($emailViewer ? "" : "display:none"));
+    printf("<div id='viewSaveImg'  style='%s'>",                                                                                           ($saveViewer  ? "" : "display:none"));
+    printf(   "<div id='cpf-viewbox-sidebar-button-dropbox'    class='cpf-viewbox-sidebar-button'></div>");
+    printf(   "<div id='cpf-viewbox-sidebar-button-googledocs' class='cpf-viewbox-sidebar-button'></div>");
+    printf("</div></div></td>");
 }
 
 
@@ -562,15 +563,13 @@ function cleansave_wp_head() {
     $showSaveBtn  = !isset($options['SaveInclude' ]) || $options['SaveInclude' ]!='exclude';
     $buttons      = '';
 
-    if (!$showPrintBtn || !$showPdfBtn || !$showEmailBtn || !$showSaveBtn) {
-       if ($showPrintBtn) $buttons .= ',print';
-       if ($showPdfBtn  ) $buttons .= ',pdf';
-       if ($showEmailBtn) $buttons .= ',email';
-       if ($showSaveBtn ) $buttons .= ',dropbox,googleDocs';
+    if ($showPrintBtn) $buttons .= ',print';
+    if ($showPdfBtn  ) $buttons .= ',pdf';
+    if ($showEmailBtn) $buttons .= ',email';
+    if ($showSaveBtn ) $buttons .= ',dropbox,googleDocs';
 
-       $buttons = sprintf("&buttons=help,%s,%s,%s", substr($buttons,1),$cleansave_edit_buttons,$cleansave_social_buttons);
-    }
-
+    $buttons = sprintf("&buttons=help,%s,%s,%s", substr($buttons,1),$cleansave_edit_buttons,$cleansave_social_buttons);
+    
     if ($cleansaveDebug) {
 		printf("\n\n\n<!-- CleanSave Debug\n\t\t%s\n\t\tpage_id:%s, home:%d, front:%d, category:%d, single:%d, page:%d, tag:%d\n-->\n\n\n",
 					               http_build_query($options,"","\n\t\t"), $page_id, is_home(), is_front_page(), is_category(), is_single(), is_page(), is_tag());
