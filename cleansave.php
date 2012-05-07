@@ -3,7 +3,7 @@
 Plugin Name: CleanSave
 Plugin URI: http://www.formatdynamics.com
 Description: Save web page content to Google Docs, Dropbox, print, PDF, and email
-Version: 1.1.5
+Version: 1.1.1
 Author: Format Dynamics
 Author URI: http://www.formatdynamics.com
 */
