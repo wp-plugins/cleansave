@@ -1,7 +1,7 @@
 ﻿=== CleanSave    ===
 Contributors: johncadams, lucascolin
 Donate link: http://www.formatdynamics.com/aboutus-contactus.php
-Tags: pdf, print, printing, widget, email, save, optimize, output, edit, editing, eco-friendly, environmental, sustainable, reader, iPad, tablet, saving, ecological, eco, ink, social, output, plugin, saver, box, box.net, box.com, dropbox, google docs, rtf, readlater, instapaper, cloud, google drive, google cloud print
+Tags: pdf, print, printing, widget, email, save, optimize, output, edit, editing, eco-friendly, environmental, sustainable, reader, iPad, tablet, saving, ecological, eco, ink, social, output, plugin, saver, box, box.net, box.com, dropbox, google docs, rtf, readlater, instapaper, cloud, google docs, google drive, google cloud print
 Requires at least: 2.0.2
 Tested up to: 3.4.1
 Stable tag: 1.2.0
@@ -171,14 +171,13 @@ Visit us at:
 = 1.2.0 =
 * Added support for Google Cloud Print
 * Added support for RTF
-* Improved button identifiers
 * Improved script injection
 
 = 1.1.5 =
 * Added support for Box.net
 
 = 1.1.1 =
-* Bug fix for page excludes
+* Minor bug fixes
 
 = 1.1.0 =
 * Added support for tag page type
