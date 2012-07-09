@@ -6,7 +6,7 @@ Requires at least: 2.0.2
 Tested up to: 3.4.1
 Stable tag: 1.2.0
   
-CleanSave – Save web page content to Box.net, Google Drive, Dropbox, Google Cloud Print, print, PDF, and email
+CleanSave – Save web page content to Box.net, Google Drive, Dropbox, Google Cloud Print, print, PDF, text and email
 
 
 == Description ==
@@ -168,6 +168,7 @@ Visit us at:
 == Changelog ==
 = 1.2.0 =
 * Added support for Google Cloud Print
+* Added support for Text/RTF
 * Improved button identifiers
 
 = 1.1.5 =

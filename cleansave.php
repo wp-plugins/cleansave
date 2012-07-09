@@ -2,7 +2,7 @@
 /*
 Plugin Name: CleanSave
 Plugin URI: http://www.formatdynamics.com
-Description: Save web page content to Box.net, Google Drive, Dropbox, Google Cloud Print, print, PDF, and email
+Description: Save web page content to Box.net, Google Drive, Dropbox, Google Cloud Print, print, PDF, RTF and email
 Version: 1.2.0
 Author: Format Dynamics
 Author URI: http://www.formatdynamics.com
@@ -188,7 +188,10 @@ function cleansave_add_settings_field_button_color() {
     printf(   "<div id='cpf-viewbox-sidebar-button-print'       class='cpf-viewbox-sidebar-button'></div>");
     printf(   "<div id='cpf-viewbox-sidebar-button-googlePrint' class='cpf-viewbox-sidebar-button'></div>");
     printf("</div>");
-    printf("<div id='viewPdfImg'   style='%s'><div id='cpf-viewbox-sidebar-button-pdf'   class='cpf-viewbox-sidebar-button'></div></div>", ($pdfViewer   ? "" : "display:none"));
+    printf("<div id='viewPdfImg'   style='%s'>",                                                                                           ($pdfViewer   ? "" : "display:none"));
+    printf("   <div id='cpf-viewbox-sidebar-button-pdf' class='cpf-viewbox-sidebar-button'></div>");
+    printf("   <div id='cpf-viewbox-sidebar-button-rtf' class='cpf-viewbox-sidebar-button'></div>");
+    printf("</div>");
     printf("<div id='viewEmailImg' style='%s'><div id='cpf-viewbox-sidebar-button-email' class='cpf-viewbox-sidebar-button'></div></div>", ($emailViewer ? "" : "display:none"));
     printf("<div id='viewSaveImg'  style='%s'>",                                                                                           ($saveViewer  ? "" : "display:none"));
     printf(   "<div id='cpf-viewbox-sidebar-button-dropbox'     class='cpf-viewbox-sidebar-button'></div>");
@@ -568,7 +571,7 @@ function cleansave_wp_head() {
     $buttons      = '';
 
     if ($showPrintBtn) $buttons .= ',print,gcp';
-    if ($showPdfBtn  ) $buttons .= ',pdf';
+    if ($showPdfBtn  ) $buttons .= ',pdf,rtf';
     if ($showEmailBtn) $buttons .= ',email';
     if ($showSaveBtn ) $buttons .= ',dropbox,googleDocs,boxDotNet';
 
