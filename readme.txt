@@ -1,12 +1,12 @@
 ﻿=== CleanSave    ===
 Contributors: johncadams, lucascolin
 Donate link: http://www.formatdynamics.com/aboutus-contactus.php
-Tags: pdf, print, printing, widget, email, save, optimize, output, edit, editing, eco-friendly, environmental, sustainable, reader, iPad, tablet, saving, ecological, eco, ink, social, output, plugin, saver, box, box.net, box.com, dropbox, google docs, rtf, readlater, instapaper, cloud, google drive
+Tags: pdf, print, printing, widget, email, save, optimize, output, edit, editing, eco-friendly, environmental, sustainable, reader, iPad, tablet, saving, ecological, eco, ink, social, output, plugin, saver, box, box.net, box.com, dropbox, google docs, rtf, readlater, instapaper, cloud, google drive, google cloud print
 Requires at least: 2.0.2
-Tested up to: 3.3.2
-Stable tag: 1.1.5
+Tested up to: 3.4.1
+Stable tag: 1.2.0
   
-CleanSave – Save web page content to Box.net, Google Docs, Dropbox, print, PDF, and email
+CleanSave – Save web page content to Box.net, Google Drive, Dropbox, Google Cloud Print, print, PDF, and email
 
 
 == Description ==
@@ -14,14 +14,15 @@ The best saving tool is now available on WordPress. Join top sites like MSNBC, C
 
 <h4>How CleanSave Works</h4>
 
-Users can easily edit content before saving to PDF, Dropbox or Google Docs.
+Users can easily edit content, save convert to PDF or Text saving to either their computer, Dropbox, Box or Google Drive accounts.
 
 1. User activates CleanSave by hitting the save button
 2. Content preview appears including editing and output tools for optimization
 3. User selects desired output:
    * PDF - Saves content as a PDF document
    * Dropbox - Saves a PDF or text file to your Dropbox account
-   * Google Docs - Saves a PDF or text file to your Google Docs account
+   * Google Drive - Saves a PDF or text file to your Google Drive account
+   * Google Cloud Print - prints remote printer
    * Print - Sends content to your printer
    * Email - Sends content via email
 4. Share article link to Facebook, Twitter, LinkedIn, and Google+
@@ -30,7 +31,7 @@ Users can easily edit content before saving to PDF, Dropbox or Google Docs.
 
 1. Use the CleanSave button set or point your own buttons or text to CleanSave.
 2. Lightbox keeps users on your page within their original browser window.
-3. Users are in control of font size, images, gray scale of text, and eliminating any unwanted content before saving to PDF, Dropbox, and Google Docs.
+3. Users are in control of font size, images, gray scale of text, and eliminating any unwanted content before saving or uploading.
 4. Branded output - Your branding/URL saved so that people can always get back to your site.
 
 
@@ -161,10 +162,20 @@ Visit us at:
 
 1. CleanSave allows you to insert Save, Print, Email and PDF buttons into your content anywhere you like from a large number of button styles.
 2. CleanSave reformats your article content in order to make it easier to read.  Users can edit article content further to get the output they desire.
-3. Users can then generate a PDF, save the content to their Google Docs or Dropbox accounts (as PDF or text), email it to their friends or send it to the printer.
+3. Users can then generate a PDF, save the content to their Google Drive or Dropbox accounts (as PDF or text), email it to their friends or send it to the printer.
 
 
 == Changelog ==
+= 1.2.0 =
+* Added support for Google Cloud Print
+* Improved button identifiers
+
+= 1.1.5 =
+* Added support for Box.net
+
+= 1.1.1 =
+* Bug fix for page excludes
+
 = 1.1.0 =
 * Added support for tag page type
 * Added support for excluding specific page IDs
