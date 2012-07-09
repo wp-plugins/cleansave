@@ -20,9 +20,11 @@ Users can easily edit content, save convert to PDF or Text saving to either thei
 2. Content preview appears including editing and output tools for optimization
 3. User selects desired output:
    * PDF - Saves content as a PDF document
+   * Text - Saves content as a rich text formated file
    * Dropbox - Saves a PDF or text file to your Dropbox account
+   * Box - Saves a PDF or text file to your Box account
    * Google Drive - Saves a PDF or text file to your Google Drive account
-   * Google Cloud Print - prints remote printer
+   * Google Cloud Print - prints to a remote printer
    * Print - Sends content to your printer
    * Email - Sends content via email
 4. Share article link to Facebook, Twitter, LinkedIn, and Google+
@@ -168,7 +170,7 @@ Visit us at:
 == Changelog ==
 = 1.2.0 =
 * Added support for Google Cloud Print
-* Added support for Text/RTF
+* Added support for RTF
 * Improved button identifiers
 * Improved script injection
 
