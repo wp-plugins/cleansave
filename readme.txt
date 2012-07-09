@@ -170,6 +170,7 @@ Visit us at:
 * Added support for Google Cloud Print
 * Added support for Text/RTF
 * Improved button identifiers
+* Improved script injection
 
 = 1.1.5 =
 * Added support for Box.net

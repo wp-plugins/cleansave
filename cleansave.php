@@ -559,8 +559,8 @@ function cleansave_wp_head() {
     global $cleansave_edit_buttons;
     global $cleansave_social_buttons;
     global $cleansaveDebug;
-   
-	$options      = get_option($cleansave_options_name);
+
+    $options      = get_option($cleansave_options_name);
 	$GASetting    = $options['GASetting'];
 	$logoUrl      = $options['logoUrl'];
 		
@@ -569,6 +569,17 @@ function cleansave_wp_head() {
     $showEmailBtn = !isset($options['EmailInclude']) || $options['EmailInclude']!='exclude';
     $showSaveBtn  = !isset($options['SaveInclude' ]) || $options['SaveInclude' ]!='exclude';
     $buttons      = '';
+
+    if (cleansave_is_pagetype() == false) {
+       // Disabled page type
+       return;
+    }
+
+    if (!($showPrintBtn || $showPdfBtn || $showEmailBtn || $showSaveBtn)) {
+       // All the buttons are excluded
+       return;
+    }
+   
 
     if ($showPrintBtn) $buttons .= ',print,gcp';
     if ($showPdfBtn  ) $buttons .= ',pdf,rtf';
