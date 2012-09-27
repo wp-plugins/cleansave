@@ -1,9 +1,9 @@
-﻿=== CleanSave    ===
+﻿﻿=== CleanSave    ===
 Contributors: johncadams, lucascolin
 Donate link: http://www.formatdynamics.com/aboutus-contactus.php
 Tags: pdf, print, printing, widget, email, save, optimize, output, edit, editing, eco-friendly, environmental, sustainable, reader, iPad, tablet, saving, ecological, eco, ink, social, output, plugin, saver, box, box.net, box.com, dropbox, google docs, rtf, readlater, instapaper, cloud, google docs, google drive, google cloud print
 Requires at least: 2.0.2
-Tested up to: 3.4.1
+Tested up to: 3.4.2
 Stable tag: 1.2.0
   
 CleanSave – Save web page content to Box.net, Google Drive, Dropbox, Google Cloud Print, print, PDF, text and email
@@ -121,6 +121,18 @@ Yes, you can add your own logo in the CleanSave Settings page.  The logo should 
 = How do remove the Print, Email and PDF buttons leaving only the Save button? =
 
 In the CleanSave Settings page you may choose from a wide variety of button styles.  You may also elect to turn on/off any button.
+
+= Can I add the CleanSave button via a shortcode?
+
+Yes, add the following to your functions.php in your theme:
+<pre>
+   add_shortcode('cleansave_button', 'get_cleansave_button');
+   function get_cleansave_button() {
+      if( function_exists('cleansave_add_save_button') ){
+         return cleansave_add_save_button();
+      }
+   }
+</pre>
 
 = How do I remove buttons from my home page? =
 
