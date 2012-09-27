@@ -549,6 +549,25 @@ function cleansave_add_content($content) {
 }
 
 
+// Adds the CleanSave save button for use by a shortcode
+function cleansave_add_save_button($content) {
+    global $post;
+    global $cleansave_options_name;
+    global $cleansave_images_base_url;
+    global $cleansave_def_btn_style;
+	 	    
+    $options     = get_option($cleansave_options_name);
+    $buttonStyle = $options['buttonStyle'];
+    $postId      = isset($post) && isset($post->ID) ? sprintf("'post-%s'", $post->ID) : ""; 
+        
+    if (!isset($buttonStyle)) {
+        $buttonStyle = $cleansave_def_btn_style;
+    }
+
+    return "<a href=\".\" onClick=\"CleanSave($postId);return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+}
+
+
 // Adds the CleanPrint script tags to the head section
 function cleansave_wp_head() {
     global $page_id;

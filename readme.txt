@@ -1,16 +1,16 @@
-﻿=== CleanSave    ===
+﻿﻿=== CleanSave ===
 Contributors: johncadams, lucascolin
 Donate link: http://www.formatdynamics.com/aboutus-contactus.php
 Tags: pdf, print, printing, widget, email, save, optimize, output, edit, editing, eco-friendly, environmental, sustainable, reader, iPad, tablet, saving, ecological, eco, ink, social, output, plugin, saver, box, box.net, box.com, dropbox, google docs, rtf, readlater, instapaper, cloud, google docs, google drive, google cloud print
 Requires at least: 2.0.2
-Tested up to: 3.4.1
+Tested up to: 3.4.2
 Stable tag: 1.2.0
   
 CleanSave – Save web page content to Box.net, Google Drive, Dropbox, Google Cloud Print, print, PDF, text and email
 
 
 == Description ==
-The best saving tool is now available on WordPress. Join top sites like MSNBC, CNN, Disney and Fox Sports and offer your users a simple saving experience that keeps them coming back to your site.
+The best saving tool is now available on WordPress. Join top sites like NBC News, CNN, Disney and Fox Sports and offer your users a simple saving experience that keeps them coming back to your site.
 
 <h4>How CleanSave Works</h4>
 
@@ -48,7 +48,7 @@ Users can easily edit content, save convert to PDF or Text saving to either thei
 
 If you prefer to use your own link or button instead of one of the provided buttons you may do so by:
 
-1. Disable the buttons via the 'Viewer' options in the CleanSave Settings page under Button Styles.
+1. Hide the buttons under Button Styles in the CleanSave Settings page.
 2. Insert a hyperlink into your page as per the example below:
    * &lt;a href='.' onClick='CleanSave();  return false' title='Save page'&gt;Save&lt;/a&gt;
    * &lt;a href='.' onClick='CleanEmail(); return false' title='Email page'&gt;Email&lt;/a&gt;
@@ -112,6 +112,21 @@ Below are paths to each of our standard Print buttons.
     Small/Chiclet      : http://cache-02.cleanprint.net/media/pfviewer/images/CleanPrintIcn_16x16.png
 
 
+<h4>Using The Shortcode Button</h4>
+
+1. Hide the buttons under Button Styles in the CleanSave Settings page.
+2. Add the shortcode [cleansave_button] to your content.
+3. Add the following to your theme's functions.php file:
+<pre>
+   add_shortcode('cleansave_button', 'get_cleansave_button');
+   function get_cleansave_button() {
+      if( function_exists('cleansave_add_save_button') ){
+         return cleansave_add_save_button();
+      }
+   }
+</pre>
+
+
 == Frequently Asked Questions ==
 
 = Can I personalize CleanSave for my site? =
@@ -140,7 +155,7 @@ You have two options:
 <ol>
    <li>Visit any of our publisher partners, locate an article and press their print button:
    <ul>
-      <li>http://www.msnbc.msn.com</li>
+      <li>http://www.nbcnews.com</li>
       <li>http://www.cnn.com</li>
       <li>http://msn.foxsports.com</li>
       <li>http://www.slate.com</li>
@@ -172,6 +187,7 @@ Visit us at:
 * Added support for Google Cloud Print
 * Added support for RTF
 * Improved script injection
+* Added shortcode support
 
 = 1.1.5 =
 * Added support for Box.net
