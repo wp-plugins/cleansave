@@ -3,7 +3,7 @@
 Plugin Name: CleanSave
 Plugin URI: http://www.formatdynamics.com
 Description: Save web page content to Box.net, Google Docs, Dropbox, print, PDF, and email
-Version: 1.1.5
+Version: 1.2.0
 Author: Format Dynamics
 Author URI: http://www.formatdynamics.com
 */
@@ -22,8 +22,8 @@ $cleansave_options_name      = 'CleanSave';
 // CleanSave parameters (change these *only* if you know what you're doing)
 $cleansave_base_url          = 'http://cache-02.cleanprint.net';
 $cleansave_publisher_key     = 'cleansave-wp';
-$cleansave_edit_buttons      = 'fontSize,rmImages,lessInk,showDel,addNote';
-$cleansave_social_buttons    = 'facebook,twitter,linkedIn,gplus';
+$cleansave_edit_buttons      = 'group:edit';
+$cleansave_social_buttons    = 'group:share';
 
 // Best not change these (internal-use only)
 $cleansave_loader_url        = $cleansave_base_url . '/cpf/cleanprint';
@@ -184,13 +184,19 @@ function cleansave_add_settings_field_button_color() {
     printf("Viewer Preview<br /><div style='border:1px solid #BBB; padding:10px; text-align:center; width:60px;'>");
     printf("<div class='cpf-viewbox-sidebar-buttonGrp'>");
     printf("<div class='cpf-viewbox-sidebar-buttonGrp-heading'>output</div>");
-    printf("<div id='viewPrintImg' style='%s'><div id='cpf-viewbox-sidebar-button-print' class='cpf-viewbox-sidebar-button'></div></div>", ($printViewer ? "" : "display:none"));
-    printf("<div id='viewPdfImg'   style='%s'><div id='cpf-viewbox-sidebar-button-pdf'   class='cpf-viewbox-sidebar-button'></div></div>", ($pdfViewer   ? "" : "display:none"));
+    printf("<div id='viewPrintImg' style='%s'>",                                                                                           ($printViewer ? "" : "display:none"));
+    printf(   "<div id='cpf-viewbox-sidebar-button-print'       class='cpf-viewbox-sidebar-button'></div>");
+    printf(   "<div id='cpf-viewbox-sidebar-button-googlePrint' class='cpf-viewbox-sidebar-button'></div>");
+    printf("</div>");
+    printf("<div id='viewPdfImg'   style='%s'>",                                                                                           ($pdfViewer   ? "" : "display:none"));
+    printf("   <div id='cpf-viewbox-sidebar-button-pdf' class='cpf-viewbox-sidebar-button'></div>");
+    printf("   <div id='cpf-viewbox-sidebar-button-rtf' class='cpf-viewbox-sidebar-button'></div>");
+    printf("</div>");
     printf("<div id='viewEmailImg' style='%s'><div id='cpf-viewbox-sidebar-button-email' class='cpf-viewbox-sidebar-button'></div></div>", ($emailViewer ? "" : "display:none"));
     printf("<div id='viewSaveImg'  style='%s'>",                                                                                           ($saveViewer  ? "" : "display:none"));
-    printf(   "<div id='cpf-viewbox-sidebar-button-dropbox'    class='cpf-viewbox-sidebar-button'></div>");
-    printf(   "<div id='cpf-viewbox-sidebar-button-googleDocs' class='cpf-viewbox-sidebar-button'></div>");
-    printf(   "<div id='cpf-viewbox-sidebar-button-boxDotNet'  class='cpf-viewbox-sidebar-button'></div>");
+    printf(   "<div id='cpf-viewbox-sidebar-button-dropbox'     class='cpf-viewbox-sidebar-button'></div>");
+    printf(   "<div id='cpf-viewbox-sidebar-button-googleDocs'  class='cpf-viewbox-sidebar-button'></div>");
+    printf(   "<div id='cpf-viewbox-sidebar-button-boxDotNet'   class='cpf-viewbox-sidebar-button'></div>");
     printf("</div></div></td>");
 }
 
@@ -543,6 +549,25 @@ function cleansave_add_content($content) {
 }
 
 
+// Adds the CleanSave save button for use by a shortcode
+function cleansave_add_save_button($content) {
+    global $post;
+    global $cleansave_options_name;
+    global $cleansave_images_base_url;
+    global $cleansave_def_btn_style;
+	 	    
+    $options     = get_option($cleansave_options_name);
+    $buttonStyle = $options['buttonStyle'];
+    $postId      = isset($post) && isset($post->ID) ? sprintf("'post-%s'", $post->ID) : ""; 
+        
+    if (!isset($buttonStyle)) {
+        $buttonStyle = $cleansave_def_btn_style;
+    }
+
+    return "<a href=\".\" onClick=\"CleanSave($postId);return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+}
+
+
 // Adds the CleanPrint script tags to the head section
 function cleansave_wp_head() {
     global $page_id;
@@ -553,8 +578,8 @@ function cleansave_wp_head() {
     global $cleansave_edit_buttons;
     global $cleansave_social_buttons;
     global $cleansaveDebug;
-   
-	$options      = get_option($cleansave_options_name);
+
+    $options      = get_option($cleansave_options_name);
 	$GASetting    = $options['GASetting'];
 	$logoUrl      = $options['logoUrl'];
 		
@@ -564,8 +589,19 @@ function cleansave_wp_head() {
     $showSaveBtn  = !isset($options['SaveInclude' ]) || $options['SaveInclude' ]!='exclude';
     $buttons      = '';
 
-    if ($showPrintBtn) $buttons .= ',print';
-    if ($showPdfBtn  ) $buttons .= ',pdf';
+    if (cleansave_is_pagetype() == false) {
+       // Disabled page type
+       return;
+    }
+
+    if (!($showPrintBtn || $showPdfBtn || $showEmailBtn || $showSaveBtn)) {
+       // All the buttons are excluded
+       return;
+    }
+   
+
+    if ($showPrintBtn) $buttons .= ',print,gcp';
+    if ($showPdfBtn  ) $buttons .= ',pdf,rtf';
     if ($showEmailBtn) $buttons .= ',email';
     if ($showSaveBtn ) $buttons .= ',dropbox,googleDocs,boxDotNet';
 
