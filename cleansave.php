@@ -3,7 +3,7 @@
 Plugin Name: CleanSave
 Plugin URI: http://www.formatdynamics.com
 Description: Save web page content to Box.net, Google Docs, Dropbox, print, PDF, and email
-Version: 1.2.0
+Version: 1.2.1
 Author: Format Dynamics
 Author URI: http://www.formatdynamics.com
 */
@@ -71,6 +71,9 @@ function cleansave_add_settings_section() {
     <p>If you would like to place the button(s) in a custom position please see installation instructions.
     Also, if you choose to use Google Analytics custom event tracking for CleanSave your site <b>MUST</b>
     have Google Analytics running.</p>
+    
+    <p>You can also turn off advertising, visit our site and sign up
+    <a href="http://www.formatdynamics.com/diypub-adfree/" target="adfree">http://www.formatdynamics.com/diypub-adfree/</a>.</p>
     <?php printf("<tr><td><h2>Logo</h2><hr /></td></tr>");?>
 <?php
 }
@@ -550,7 +553,7 @@ function cleansave_add_content($content) {
 
 
 // Adds the CleanSave save button for use by a shortcode
-function cleansave_add_save_button($content) {
+function cleansave_add_save_button() {
     global $post;
     global $cleansave_options_name;
     global $cleansave_images_base_url;
@@ -565,6 +568,38 @@ function cleansave_add_save_button($content) {
     }
 
     return "<a href=\".\" onClick=\"CleanSave($postId);return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+}
+
+
+// Adds any CleanSave button for use by a shortcode
+function cleansave_add_button($atts, $content, $tag) {
+    global $post;
+    global $cleansave_options_name;
+    global $cleansave_images_base_url;
+    global $cleansave_def_btn_style;
+	 	    
+    extract( shortcode_atts( array(
+		'save'  => 'true',
+        'pdf'   => 'false',
+        'email' => 'false',
+        'print' => 'false',        
+	), $atts ) );
+	 	    
+    $options     = get_option($cleansave_options_name);
+    $buttonStyle = $options['buttonStyle'];
+    $postId      = isset($post) && isset($post->ID) ? sprintf("'post-%s'", $post->ID) : ""; 
+    $rtn         = ""; 
+        
+    if (!isset($buttonStyle)) {
+        $buttonStyle = $cleansave_def_btn_style;
+    }
+    
+    if ("{$save}" =="true") $rtn .= "<a href=\".\" onClick=\"CleanSave ($postId);return false\" title=\"Save page\"  class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\" /></a>";
+    if ("{$pdf}"  =="true") $rtn .= "<a href=\".\" onClick=\"CleanPDF  ($postId);return false\" title=\"PDF page\"   class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Pdf$buttonStyle.png\" style=\"padding:0px 1px;\"       /></a>";
+    if ("{$email}"=="true") $rtn .= "<a href=\".\" onClick=\"CleanEmail($postId);return false\" title=\"Email page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Email$buttonStyle.png\" style=\"padding:0px 1px;\"     /></a>";
+    if ("{$print}"=="true") $rtn .= "<a href=\".\" onClick=\"CleanPrint($postId);return false\" title=\"Print page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanPrint$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+
+    return $rtn;
 }
 
 
@@ -598,7 +633,6 @@ function cleansave_wp_head() {
        // All the buttons are excluded
        return;
     }
-   
 
     if ($showPrintBtn) $buttons .= ',print,gcp';
     if ($showPdfBtn  ) $buttons .= ',pdf,rtf';
