@@ -33,7 +33,7 @@ $cleansave_style_url         = $cleansave_base_url . '/media/pfviewer/css/screen
 $cleansave_def_logo_url      = $cleansave_base_url . '/media/logos/CleanSave.png';
 $cleansave_def_btn_style     = 'Btn_white';
 $cleansave_def_btn_placement = 'tr';
-$cleansaveDebug              = false;
+$cleansave_debug             = false;
 
 
 // Display the options page
@@ -460,9 +460,9 @@ function cleansave_is_pagetype() {
     $posts         = $options['PostsInclude'];
     $pages         = $options['PagesInclude'];
     $tags          = $options['TagsInclude'];
-    $excludes      = $options['PagesExcludes'];
-/*    
-    if (isset($excludes)) {
+/*  $excludes      = $options['PagesExcludes'];
+    
+    if (isset($excludes) && isset($page_id)) {
        $IDs = explode(",", $excludes);
        $len = count($IDs);
        for ($i=0; $i<$len; $i++) {
@@ -612,7 +612,7 @@ function cleansave_wp_head() {
 	global $cleansave_def_logo_url;
     global $cleansave_edit_buttons;
     global $cleansave_social_buttons;
-    global $cleansaveDebug;
+    global $cleansave_debug;
 
     $options      = get_option($cleansave_options_name);
 	$GASetting    = $options['GASetting'];
@@ -641,7 +641,7 @@ function cleansave_wp_head() {
 
     $buttons = sprintf("&buttons=help,%s,%s,%s", substr($buttons,1),$cleansave_edit_buttons,$cleansave_social_buttons);
     
-    if ($cleansaveDebug) {
+    if ($cleansave_debug) {
 		printf("\n\n\n<!-- CleanSave Debug\n\t\t%s\n\t\tpage_id:%s, home:%d, front:%d, category:%d, single:%d, page:%d, tag:%d\n-->\n\n\n",
 					               http_build_query($options,"","\n\t\t"), $page_id, is_home(), is_front_page(), is_category(), is_single(), is_page(), is_tag());
 	}
