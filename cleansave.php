@@ -516,19 +516,19 @@ function cleansave_add_content($content) {
         }
 
         if ($showSaveBtn) {
-            $buttons .= "<a href=\".\" onClick=\"CleanSave4WP_Save($postId);return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+            $buttons .= "<a href=\".\" onClick=\"CleanSave($postId);return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
         }
 
         if ($showPdfBtn) {
-            $buttons .= "<a href=\".\" onClick=\"CleanSave4WP_PDF($postId);return false\" title=\"PDF page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Pdf$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+            $buttons .= "<a href=\".\" onClick=\"CleanPDF($postId);return false\" title=\"PDF page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Pdf$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
         }
 
         if ($showEmailBtn) {
-            $buttons .= "<a href=\".\" onClick=\"CleanSave4WP_Email($postId);return false\" title=\"Email page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Email$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+            $buttons .= "<a href=\".\" onClick=\"CleanEmail($postId);return false\" title=\"Email page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Email$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
         }
         
         if ($showPrintBtn) {
-            $buttons .= "<a href=\".\" onClick=\"CleanSave4WP_Print($postId);return false\" title=\"Print page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanPrint$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+            $buttons .= "<a href=\".\" onClick=\"CleanPrint($postId);return false\" title=\"Print page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanPrint$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
         }
 
         
@@ -567,7 +567,7 @@ function cleansave_add_save_button() {
         $buttonStyle = $cleansave_def_btn_style;
     }
 
-    return "<a href=\".\" onClick=\"CleanSave4WP_Save($postId);return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+    return "<a href=\".\" onClick=\"CleanSave($postId);return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
 }
 
 
@@ -594,10 +594,10 @@ function cleansave_add_button($atts, $content, $tag) {
         $buttonStyle = $cleansave_def_btn_style;
     }
     
-    if ("{$save}" =="true") $rtn .= "<a href=\".\" onClick=\"CleanSave4WP_Save ($postId);return false\" title=\"Save page\"  class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\" /></a>";
-    if ("{$pdf}"  =="true") $rtn .= "<a href=\".\" onClick=\"CleanSave4WP_PDF  ($postId);return false\" title=\"PDF page\"   class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Pdf$buttonStyle.png\" style=\"padding:0px 1px;\"       /></a>";
-    if ("{$email}"=="true") $rtn .= "<a href=\".\" onClick=\"CleanSave4WP_Email($postId);return false\" title=\"Email page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Email$buttonStyle.png\" style=\"padding:0px 1px;\"     /></a>";
-    if ("{$print}"=="true") $rtn .= "<a href=\".\" onClick=\"CleanSave4WP_Print($postId);return false\" title=\"Print page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanPrint$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+    if ("{$save}" =="true") $rtn .= "<a href=\".\" onClick=\"CleanSave ($postId);return false\" title=\"Save page\"  class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\" /></a>";
+    if ("{$pdf}"  =="true") $rtn .= "<a href=\".\" onClick=\"CleanPDF  ($postId);return false\" title=\"PDF page\"   class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Pdf$buttonStyle.png\" style=\"padding:0px 1px;\"       /></a>";
+    if ("{$email}"=="true") $rtn .= "<a href=\".\" onClick=\"CleanEmail($postId);return false\" title=\"Email page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Email$buttonStyle.png\" style=\"padding:0px 1px;\"     /></a>";
+    if ("{$print}"=="true") $rtn .= "<a href=\".\" onClick=\"CleanPrint($postId);return false\" title=\"Print page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanPrint$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
 
     return $rtn;
 }
@@ -647,25 +647,25 @@ function cleansave_wp_head() {
 	}
 		
     printf( "<script id='cpf_wp' type='text/javascript'>\n");
-    printf( "   function CleanSave4WP_Save(postId) {\n");
+    printf( "   function CleanSave(postId) {\n");
     printf( "   	CleanPrintPrintHtml(null,postId);\n");
 						if ($GASetting=="true") {
 							printf( "   try { _gaq.push(['_trackEvent', 'CleanPrint', 'Save']); } catch(e) {}\n");
 						}
     printf( "   }\n");
-    printf( "   function CleanSave4WP_Email(postId) {\n");
+    printf( "   function CleanEmail(postId) {\n");
     printf( "   	CleanPrintSendEmail(null,postId);\n");
 						if ($GASetting=="true") {
 							printf( "   try { _gaq.push(['_trackEvent', 'CleanPrint', 'Email']); } catch(e) {}\n");
 						}
     printf( "   }\n");
-    printf( "   function CleanSave4WP_PDF(postId) {\n");
+    printf( "   function CleanPDF(postId) {\n");
     printf( "   	CleanPrintGeneratePdf(null,postId);\n");
 						if ($GASetting=="true") {
 							printf( "   try { _gaq.push(['_trackEvent', 'CleanPrint', 'PDF']); } catch(e) {}\n");
 						}
     printf( "   }\n");
-    printf( "   function CleanSave4WP_Print(postId) {\n");
+    printf( "   function CleanPrint(postId) {\n");
     printf( "       CleanPrintPrintHtml(null,postId);\n");
                         if ($GASetting=="true") {
                             printf( "   try { _gaq.push(['_trackEvent', 'CleanPrint', 'Print']); } catch(e) {}\n");

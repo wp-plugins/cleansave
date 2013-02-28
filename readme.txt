@@ -14,7 +14,7 @@ The best saving tool is now available on WordPress. Join top sites like NBC News
 
 <h4>How CleanSave Works</h4>
 
-Users can easily edit content, save convert to PDF or Text saving to either their computer, Dropbox, Box or Google Drive accounts.
+Users can easily edit content, save to PDF or a Text file or upload to Dropbox, Box or Google Drive.
 
 1. User activates CleanSave by hitting the save button
 2. Content preview appears including editing and output tools for optimization
@@ -43,7 +43,7 @@ Users can easily edit content, save convert to PDF or Text saving to either thei
 2. On the navigation on the left hand side, click 'Plugins', then 'Add New' from the menu.
 3. Enable the CleanSave plugin.
 4. Visit the CleanSave Settings page, select the appropriate options and click "Save Changes".
-5. To remove ads from CleanPrint go to http://www.formatdynamics.com/diypub-adfree/ and sign up.
+5. To remove ads from CleanSave go to http://www.formatdynamics.com/diypub-adfree/ and sign up.
 
 <h4>Using Your Own Buttons</h4>
 
