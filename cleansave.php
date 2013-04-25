@@ -2,7 +2,7 @@
 /*
 Plugin Name: CleanSave
 Plugin URI: http://www.formatdynamics.com
-Description: Save web page content to your Kindle, Box, Google Docs, Dropbox, print, PDF, and email
+Description: Save web page content to your Kindle, Box, Google Drive, Dropbox, print, PDF, and email
 Version: 1.3.0
 Author: Format Dynamics
 Author URI: http://www.formatdynamics.com
