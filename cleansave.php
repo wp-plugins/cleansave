@@ -2,8 +2,8 @@
 /*
 Plugin Name: CleanSave
 Plugin URI: http://www.formatdynamics.com
-Description: Save web page content to Box.net, Google Docs, Dropbox, print, PDF, and email
-Version: 1.2.2
+Description: Save web page content to your Kindle, Box, Google Docs, Dropbox, print, PDF, and email
+Version: 1.3.0
 Author: Format Dynamics
 Author URI: http://www.formatdynamics.com
 */
@@ -197,9 +197,10 @@ function cleansave_add_settings_field_button_color() {
     printf("</div>");
     printf("<div id='viewEmailImg' style='%s'><div id='cpf-viewbox-sidebar-button-email' class='cpf-viewbox-sidebar-button'></div></div>", ($emailViewer ? "" : "display:none"));
     printf("<div id='viewSaveImg'  style='%s'>",                                                                                           ($saveViewer  ? "" : "display:none"));
-    printf(   "<div id='cpf-viewbox-sidebar-button-dropbox'     class='cpf-viewbox-sidebar-button'></div>");
-    printf(   "<div id='cpf-viewbox-sidebar-button-googleDocs'  class='cpf-viewbox-sidebar-button'></div>");
-    printf(   "<div id='cpf-viewbox-sidebar-button-boxDotNet'   class='cpf-viewbox-sidebar-button'></div>");
+    printf(   "<div id='cpf-viewbox-sidebar-button-dropbox'    class='cpf-viewbox-sidebar-button'></div>");
+    printf(   "<div id='cpf-viewbox-sidebar-button-googleDocs' class='cpf-viewbox-sidebar-button'></div>");
+    printf(   "<div id='cpf-viewbox-sidebar-button-boxDotNet'  class='cpf-viewbox-sidebar-button'></div>");
+    printf(   "<div class='cpf-viewbox-sidebar-button kindleWidget'></div>");
     printf("</div></div></td>");
 }
 
@@ -637,7 +638,7 @@ function cleansave_wp_head() {
     if ($showPrintBtn) $buttons .= ',print,gcp';
     if ($showPdfBtn  ) $buttons .= ',pdf,rtf';
     if ($showEmailBtn) $buttons .= ',email';
-    if ($showSaveBtn ) $buttons .= ',dropbox,googleDocs,boxDotNet';
+    if ($showSaveBtn ) $buttons .= ',dropbox,googleDocs,boxDotNet,kindle';
 
     $buttons = sprintf("&buttons=help,%s,%s,%s", substr($buttons,1),$cleansave_edit_buttons,$cleansave_social_buttons);
     
