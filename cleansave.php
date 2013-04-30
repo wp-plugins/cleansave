@@ -85,7 +85,7 @@ function cleansave_add_settings_field_logo_url_() {
     global $cleansave_def_logo_url;
     
 	$options        = get_option($cleansave_options_name);
-	$logoUrl        = $options['logoUrl'];
+	$logoUrl        = isset($options['logoUrl']) ? $options['logoUrl'] : null;
     $customChecked  = isset($logoUrl) && $logoUrl!=$cleansave_def_logo_url;
     $defaultChecked = !$customChecked;
 
@@ -108,7 +108,7 @@ function cleansave_add_settings_field_button_color() {
     global $cleansave_def_btn_style;
     
 	$options     = get_option($cleansave_options_name);
-	$buttonStyle = $options['buttonStyle'];
+	$buttonStyle = isset($options['buttonStyle']) ? $options['buttonStyle'] : null;
 	
 	if(!isset($buttonStyle)) {
         $buttonStyle = $cleansave_def_btn_style;
@@ -161,10 +161,10 @@ function cleansave_add_settings_field_button_color() {
     printf("<script>document.getElementById('cpf_button_selector').appendChild(buildButtonSelect());</script>");
     
 	
-	$PrintInclude    = $options['PrintInclude'];
-    $PDFInclude      = $options['PDFInclude'  ];
-    $EmailInclude    = $options['EmailInclude'];
-    $SaveInclude     = $options['SaveInclude' ];
+	$PrintInclude    = isset($options['PrintInclude']) ? $options['PrintInclude'] : null;
+    $PDFInclude      = isset($options['PDFInclude'  ]) ? $options['PDFInclude'  ] : null;
+    $EmailInclude    = isset($options['EmailInclude']) ? $options['EmailInclude'] : null;
+    $SaveInclude     = isset($options['SaveInclude' ]) ? $options['SaveInclude' ] : null;
     
     $savePage        = !isset($SaveInclude)  || $SaveInclude =='both';
     $printPage       = !isset($PrintInclude) || $PrintInclude=='both';
@@ -210,7 +210,7 @@ function cleansave_add_settings_field_save_btn() {
     global $cleansave_options_name;
     
     $options         = get_option($cleansave_options_name);
-    $SaveInclude     = $options['SaveInclude'];
+    $SaveInclude     = isset($options['SaveInclude']) ? $options['SaveInclude'] : null;
     $bothChecked     = !isset($SaveInclude) || $SaveInclude == "both";
     $viewChecked     =  isset($SaveInclude) && $SaveInclude == "viewer";
     $noneChecked     = !$bothChecked && !$viewChecked;
@@ -226,7 +226,7 @@ function cleansave_add_settings_field_pdf_btn() {
     global $cleansave_options_name;
     
 	$options         = get_option($cleansave_options_name);
-	$PDFInclude      = $options['PDFInclude'];
+	$PDFInclude      = isset($options['PDFInclude']) ? $options['PDFInclude'] : null;
     $bothChecked     = !isset($PDFInclude)  || $PDFInclude == "both";
     $viewChecked     =  isset($PDFInclude)  && $PDFInclude == "viewer";
     $noneChecked     = !$bothChecked && !$viewChecked;
@@ -242,7 +242,7 @@ function cleansave_add_settings_field_email_btn() {
     global $cleansave_options_name;
     
 	$options         = get_option($cleansave_options_name);
-	$EmailInclude    = $options['EmailInclude'];
+	$EmailInclude    = isset($options['EmailInclude']) ? $options['EmailInclude'] : null;
 	$bothChecked     = !isset($EmailInclude) || $EmailInclude == "both";
     $viewChecked     =  isset($EmailInclude) && $EmailInclude == "viewer";
     $noneChecked     = !$bothChecked && !$viewChecked;
@@ -258,7 +258,7 @@ function cleansave_add_settings_field_print_btn() {
     global $cleansave_options_name;
     
     $options         = get_option($cleansave_options_name);
-    $PrintInclude    = $options['PrintInclude'];
+    $PrintInclude    = isset($options['PrintInclude']) ? $options['PrintInclude'] : null;
     $bothChecked     = !isset($PrintInclude) || $PrintInclude == "both";
     $viewChecked     =  isset($PrintInclude) && $PrintInclude == "viewer";
     $noneChecked     = !$bothChecked && !$viewChecked;
@@ -276,7 +276,7 @@ function cleansave_add_settings_field_btn_placement() {
     global $cleansave_def_btn_placement;
     
 	$options         = get_option($cleansave_options_name);
-	$ButtonPlacement = $options['ButtonPlacement'];
+	$ButtonPlacement = isset($options['ButtonPlacement']) ? $options['ButtonPlacement'] : null;
 	
 	if (!isset($ButtonPlacement)) {
 	   $ButtonPlacement = $cleansave_def_btn_placement;
@@ -308,8 +308,8 @@ function cleansave_add_settings_field_homepage() {
     global $cleansave_options_name;
     
     $options     = get_option($cleansave_options_name);
-    $homepage    = $options['HomepageInclude'];
-    $isChecked   = $homepage=="include" || !isset($homepage);
+    $homepage    = isset($options['HomepageInclude']) ? $options['HomepageInclude'] : null;
+    $isChecked   = !isset($homepage) || $homepage=="include";
     
     printf( "<select id='plugin_homepage' name='%s[HomepageInclude]'>", $cleansave_options_name);
     printf( "<option value='include' %s>Include</option>", ( $isChecked ?"selected='selected'":""));
@@ -323,8 +323,8 @@ function cleansave_add_settings_field_frontpage() {
     global $cleansave_options_name;
     
     $options     = get_option($cleansave_options_name);
-    $frontpage   = $options['FrontpageInclude'];
-    $isChecked   = $frontpage=="include" || !isset($frontpage);
+    $frontpage   = isset($options['FrontpageInclude']) ? $options['FrontpageInclude'] : null;
+    $isChecked   = !isset($frontpage) || $frontpage=="include";
     
     printf( "<select id='plugin_frontpage' name='%s[FrontpageInclude]'>", $cleansave_options_name);
     printf( "<option value='include' %s>Include</option>", ( $isChecked ?"selected='selected'":""));
@@ -338,8 +338,8 @@ function cleansave_add_settings_field_category() {
     global $cleansave_options_name;
     
     $options     = get_option($cleansave_options_name);
-    $category    = $options['CategoryInclude'];
-    $isChecked   = $category=="include" || !isset($category);
+    $category    = isset($options['CategoryInclude']) ? $options['CategoryInclude'] : null;
+    $isChecked   = !isset($category) || $category=="include";
     
     printf( "<select id='plugin_category' name='%s[CategoryInclude]'>", $cleansave_options_name);
     printf( "<option value='include' %s>Include</option>", ( $isChecked ?"selected='selected'":""));
@@ -353,8 +353,8 @@ function cleansave_add_settings_field_posts() {
     global $cleansave_options_name;
     
     $options     = get_option($cleansave_options_name);
-    $posts       = $options['PostsInclude'];
-    $isChecked   = $posts=="include" || !isset($posts);
+    $posts       = isset($options['PostsInclude']) ? $options['PostsInclude'] : null;
+    $isChecked   = !isset($posts) || $posts=="include";
     
     printf( "<select id='plugin_posts' name='%s[PostsInclude]'>", $cleansave_options_name);
     printf( "<option value='include' %s>Include</option>", ( $isChecked ?"selected='selected'":""));
@@ -368,8 +368,8 @@ function cleansave_add_settings_field_pages() {
     global $cleansave_options_name;
     
     $options     = get_option($cleansave_options_name);
-    $pages       = $options['PagesInclude'];
-    $isChecked   = $pages=="include" || !isset($pages);
+    $pages       = isset($options['PagesInclude']) ? $options['PagesInclude'] : null;
+    $isChecked   = !isset($pages) || $pages=="include";
     
     printf( "<select id='plugin_pages' name='%s[PagesInclude]'>", $cleansave_options_name);
     printf( "<option value='include' %s>Include</option>", ( $isChecked ?"selected='selected'":""));
@@ -383,8 +383,8 @@ function cleansave_add_settings_field_tags() {
     global $cleansave_options_name;
     
     $options     = get_option($cleansave_options_name);
-    $tags        = $options['TagsInclude'];
-    $isChecked   = $tags=="include" || !isset($tags);
+    $tags        = isset($options['TagsInclude']) ? $options['TagsInclude'] : null;
+    $isChecked   = !isset($tags) || $tags=="include";
     
     printf( "<select id='plugin_tags' name='%s[TagsInclude]'>", $cleansave_options_name);
     printf( "<option value='include' %s>Include</option>", ( $isChecked ?"selected='selected'":""));
@@ -399,7 +399,7 @@ function cleansave_add_settings_field_excludes() {
     global $cleansave_options_name;
     
     $options     = get_option($cleansave_options_name);
-    $excludes    = $options['PagesExcludes'];
+    $excludes    = isset($options['PagesExcludes']) ? $options['PagesExcludes'] : "";
     
     printf( "<input type='text' id='plugin_excludes' name='%s[PagesExcludes]' value='%s' /><br>\n", $cleansave_options_name, $excludes);
 //  printf("<tr><td colspan='3'><h2>Google Analytics</h2><hr /></td></tr>");  
@@ -411,9 +411,9 @@ function cleansave_add_settings_field_ga() {
     global $cleansave_options_name;
     
 	$options         = get_option($cleansave_options_name);
-	$GASetting       = $options['GASetting'];
+	$GASetting       = isset($options['GASetting']) ? $options['GASetting'] : null;
 	$disabledChecked = !isset($GASetting) || $GASetting=="false";
-    $enabledChecked  = $GASetting;
+    $enabledChecked  = !$disabledChecked;
     
     printf( "<input type='radio' id='plugin_gaOption' name='%s[GASetting]' value='true' %s />", $cleansave_options_name, $enabledChecked?"checked='checked'":"");
 	printf( "Enabled<br />\n");
@@ -438,8 +438,8 @@ function cleansave_sanitize_options($options) {
    global $optionsVersion;
    
    // Map the customLogo into logoUrl
-   $logoUrl    = $options['logoUrl'];
-   $customLogo = $options['customLogo'];
+   $logoUrl    = isset($options['logoUrl'])    ? $options['logoUrl']    : null;
+   $customLogo = isset($options['customLogo']) ? $options['customLogo'] : null;
    if (isset($logoUrl) && isset($customLogo) && $logoUrl!=$cleansave_def_logo_url) {
       $options['logoUrl'] = $customLogo;            
    }   
@@ -455,13 +455,13 @@ function cleansave_is_pagetype() {
 	global $cleansave_options_name;
 
     $options       = get_option($cleansave_options_name);
-    $homepage      = $options['HomepageInclude'];
-    $frontpage     = $options['FrontpageInclude'];
-    $category      = $options['CategoryInclude'];
-    $posts         = $options['PostsInclude'];
-    $pages         = $options['PagesInclude'];
-    $tags          = $options['TagsInclude'];
-/*  $excludes      = $options['PagesExcludes'];
+    $homepage      = isset($options['HomepageInclude' ]) ? $options['HomepageInclude' ] : null;
+    $frontpage     = isset($options['FrontpageInclude']) ? $options['FrontpageInclude'] : null;
+    $category      = isset($options['CategoryInclude' ]) ? $options['CategoryInclude' ] : null;
+    $posts         = isset($options['PostsInclude'    ]) ? $options['PostsInclude'    ] : null;
+    $pages         = isset($options['PagesInclude'    ]) ? $options['PagesInclude'    ] : null;
+    $tags          = isset($options['TagsInclude'     ]) ? $options['TagsInclude'     ] : null;
+/*  $excludes      = isset($options['PagesExcludes'   ]) ? $options['PagesExcludes'   ] : null;
     
     if (isset($excludes) && isset($page_id)) {
        $IDs = explode(",", $excludes);
@@ -471,12 +471,12 @@ function cleansave_is_pagetype() {
        }
     }
 */    
-    $isHomeChecked = $homepage =='include' || !isset($homepage);
-    $isFrntChecked = $frontpage=='include' || !isset($frontpage);
-    $isCatgChecked = $category =='include' || !isset($category);
-    $isPostChecked = $posts    =='include' || !isset($posts);
-    $isPageChecked = $pages    =='include' || !isset($pages);
-    $isTagChecked  = $tags     =='include' || !isset($tags);
+    $isHomeChecked = !isset($homepage)  || $homepage =='include';
+    $isFrntChecked = !isset($frontpage) || $frontpage=='include';
+    $isCatgChecked = !isset($category)  || $category =='include';
+    $isPostChecked = !isset($posts)     || $posts    =='include';
+    $isPageChecked = !isset($pages)     || $pages    =='include';
+    $isTagChecked  = !isset($tags)      || $tags     =='include';
     
     if (is_home()       && $isHomeChecked) return true;
     if (is_front_page() && $isFrntChecked) return true;              
@@ -497,14 +497,15 @@ function cleansave_add_content($content) {
 	global $cleansave_def_btn_placement;
 	 	    
 	$options         = get_option($cleansave_options_name);
-	$buttonStyle     = $options['buttonStyle'];
-    $ButtonPlacement = $options['ButtonPlacement'];
+	$buttonStyle     = isset($options['buttonStyle']    ) ? $options['buttonStyle']     : null;
+    $ButtonPlacement = isset($options['ButtonPlacement']) ? $options['ButtonPlacement'] : null;
     
-    $showSaveBtn     = $options['SaveInclude' ]=='both' || !isset($options['SaveInclude' ]);
-    $showPrintBtn    = $options['PrintInclude']=='both' || !isset($options['PrintInclude']);
-    $showPdfBtn      = $options['PDFInclude'  ]=='both' || !isset($options['PDFInclude'  ]);
-    $showEmailBtn    = $options['EmailInclude']=='both' || !isset($options['EmailInclude']);
+    $showSaveBtn     = !isset($options['SaveInclude' ]) || $options['SaveInclude' ]=='both';
+    $showPrintBtn    = !isset($options['PrintInclude']) || $options['PrintInclude']=='both';
+    $showPdfBtn      = !isset($options['PDFInclude'  ]) || $options['PDFInclude'  ]=='both';
+    $showEmailBtn    = !isset($options['EmailInclude']) || $options['EmailInclude']=='both';
     $postId          = isset($post) && isset($post->ID) ? sprintf("'post-%s'", $post->ID) : ""; 
+    $buttons         = "";
     
     if (!isset($ButtonPlacement)) {
        $ButtonPlacement = $cleansave_def_btn_placement;
@@ -561,7 +562,7 @@ function cleansave_add_save_button() {
     global $cleansave_def_btn_style;
 	 	    
     $options     = get_option($cleansave_options_name);
-    $buttonStyle = $options['buttonStyle'];
+    $buttonStyle = isset($options['buttonStyle']) ? $options['buttonStyle'] : null;
     $postId      = isset($post) && isset($post->ID) ? sprintf("'post-%s'", $post->ID) : ""; 
         
     if (!isset($buttonStyle)) {
@@ -587,7 +588,7 @@ function cleansave_add_button($atts, $content, $tag) {
 	), $atts ) );
 	 	    
     $options     = get_option($cleansave_options_name);
-    $buttonStyle = $options['buttonStyle'];
+    $buttonStyle = isset($options['buttonStyle']) ? $options['buttonStyle'] : null;
     $postId      = isset($post) && isset($post->ID) ? sprintf("'post-%s'", $post->ID) : ""; 
     $rtn         = ""; 
         
@@ -616,8 +617,8 @@ function cleansave_wp_head() {
     global $cleansave_debug;
 
     $options      = get_option($cleansave_options_name);
-	$GASetting    = $options['GASetting'];
-	$logoUrl      = $options['logoUrl'];
+	$GASetting    = isset($options['GASetting']) ? $options['GASetting'] : null;
+    $logoUrl      = isset($options['logoUrl'])   ? $options['logoUrl']   : null;
 		
     $showPrintBtn = !isset($options['PrintInclude']) || $options['PrintInclude']!='exclude';
     $showPdfBtn   = !isset($options['PDFInclude'  ]) || $options['PDFInclude'  ]!='exclude';
@@ -699,33 +700,6 @@ function cleansave_activate() {
    $optionsVersion = '1.0';
    
    if (isset($options)) {
-      $version  = $options['version'];   
-   
-      // Don't know what version we looking at (0.97, 1.0.0, 1.0.1, or 2.0.0) so there is only
-      // so much we can do.  The biggest issue of the logoUrl which was hijacked in 2.0.0 and
-      // now we cannot tell it use apart from earlier releases.
-      if (!isset($version)) {      
-         $logoUrl = $options['logoUrl'];
-         // Get rid of the old CP3/WP leader board header
-         if (isset($logoUrl) && $logoUrl == 'http://cache-01.cleanprint.net/media/2434/1229027745109_699.jpg') {      
-            unset($options['logoUrl']);
-         }
-         
-         $buttonColor = $options['buttonColor'];
-         if (isset($buttonColor)) {
-            $options['buttonStyle'] = 'Btn_' . $buttonColor;
-         }
-   
-         // Get rid of the old options
-         unset($options['printSpecId']);
-         unset($options['activationKey']);
-         unset($options['buttonUrl']);
-         unset($options['customButton']);
-         unset($options['customLogo']);
-         unset($options['buttonColor']);
-      }
-   
-      // Set the version and commit the changes
       $options['version'] = $optionsVersion;      
       update_option('CleanSave', $options);
    }
