@@ -1,12 +1,12 @@
 === CleanSave ===
 Contributors: johncadams, lucascolin
 Donate link: http://www.formatdynamics.com/aboutus-contactus.php
-Tags: pdf, print, printing, widget, email, save, optimize, output, edit, editing, eco-friendly, environmental, sustainable, reader, iPad, tablet, saving, ecological, eco, ink, social, output, plugin, saver, box, box.net, box.com, dropbox, google docs, rtf, readlater, instapaper, cloud, google docs, google drive, google cloud print
+Tags: pdf, print, printing, kindle, widget, email, save, optimize, output, edit, editing, eco-friendly, environmental, sustainable, reader, iPad, tablet, saving, ecological, eco, ink, social, output, plugin, saver, box, box.net, box.com, dropbox, rtf, readlater, instapaper, cloud, google docs, google drive, google cloud print
 Requires at least: 2.0.2
-Tested up to: 3.4.2
-Stable tag: 1.2.1
+Tested up to: 3.5.1
+Stable tag: 1.3.0
   
-CleanSave - Save web page content to Box.net, Google Drive, Dropbox, Google Cloud Print, print, PDF, text and email
+CleanSave - Save web page content to your Kindle, Box, Google Drive, Dropbox, Google Cloud Print, print, PDF, text and email
 
 
 == Description ==
@@ -14,7 +14,7 @@ The best saving tool is now available on WordPress. Join top sites like NBC News
 
 <h4>How CleanSave Works</h4>
 
-Users can easily edit content, save convert to PDF or Text saving to either their computer, Dropbox, Box or Google Drive accounts.
+Users can easily edit content, save to PDF or a Text file or upload to their Kindle, Dropbox, Box or Google Drive.
 
 1. User activates CleanSave by hitting the save button
 2. Content preview appears including editing and output tools for optimization
@@ -24,6 +24,7 @@ Users can easily edit content, save convert to PDF or Text saving to either thei
    * Dropbox - Saves a PDF or text file to your Dropbox account
    * Box - Saves a PDF or text file to your Box account
    * Google Drive - Saves a PDF or text file to your Google Drive account
+   * Kindle - Saves the content to your Kindle
    * Google Cloud Print - prints to a remote printer
    * Print - Sends content to your printer
    * Email - Sends content via email
@@ -43,7 +44,7 @@ Users can easily edit content, save convert to PDF or Text saving to either thei
 2. On the navigation on the left hand side, click 'Plugins', then 'Add New' from the menu.
 3. Enable the CleanSave plugin.
 4. Visit the CleanSave Settings page, select the appropriate options and click "Save Changes".
-5. To remove ads from CleanPrint go to http://www.formatdynamics.com/diypub-adfree/ and sign up.
+5. To remove ads from CleanSave go to http://www.formatdynamics.com/diypub-adfree/ and sign up.
 
 <h4>Using Your Own Buttons</h4>
 
@@ -183,10 +184,14 @@ Visit us at:
 
 1. CleanSave allows you to insert Save, Print, Email and PDF buttons into your content anywhere you like from a large number of button styles.
 2. CleanSave reformats your article content in order to make it easier to read.  Users can edit article content further to get the output they desire.
-3. Users can then generate a PDF, save the content to their Google Drive or Dropbox accounts (as PDF or text), email it to their friends or send it to the printer.
+3. Users can then generate a PDF, save the content to their Kindle, Google Drive, Dropbox or Box accounts (as PDF or text), email it to their friends or send it to the printer.
 
 
 == Changelog ==
+
+= 1.3.0 =
+* Kindle support
+* Minor bug fixes
 
 = 1.2.1 =
 * New shortcode behavior 
@@ -199,7 +204,7 @@ Visit us at:
 * Added shortcode support
 
 = 1.1.5 =
-* Added support for Box.net
+* Added support for Box
 
 = 1.1.1 =
 * Minor bug fixes
