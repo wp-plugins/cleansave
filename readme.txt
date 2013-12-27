@@ -64,13 +64,12 @@ WordPress documentation found elsewhere:
 
 
 <h4>Using Shortcode Buttons</h4>
-<ol>
-   <li> Hide the buttons under Button Styles in the CleanSave Settings page.</li>
-   <li> Add the shortcode [cleanprint_button] to your theme's functions.php file (usually at/near the bottom):</li>
-        <pre>add_shortcode('cleansave_button', 'cleansave_add_button');</pre>
-   <li> Activate the button(s) in your HTML content, for example to add all 3 buttons:</li>
-        <pre>[cleansave_button save='true' pdf='true' email='true' print='true']</pre>
-</ol>
+1. Hide the buttons under Button Styles in the CleanSave Settings page.
+2. Add the shortcode [cleansave_button] to your theme's functions.php file (usually at/near the bottom):
+   <pre>add_shortcode('cleansave_button', 'cleansave_add_button');</pre>
+3. Activate the button(s) in your HTML content, for example to add all 3 buttons:
+   <pre>[cleansave_button save='true' pdf='true' email='true' print='true']</pre>
+
 
 
 == Frequently Asked Questions ==
