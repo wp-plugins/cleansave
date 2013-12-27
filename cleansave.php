@@ -3,7 +3,7 @@
 Plugin Name: CleanSave
 Plugin URI: http://www.formatdynamics.com
 Description: Save web page content to your Kindle, Box, Google Drive, Dropbox, print, PDF, and email
-Version: 1.3.0
+Version: 1.4.0
 Author: Format Dynamics
 Author URI: http://www.formatdynamics.com
 */
@@ -20,7 +20,7 @@ $cleansave_print_attr        = 'print';
 $cleansave_options_name      = 'CleanSave';
 
 // CleanSave parameters (change these *only* if you know what you're doing)
-$cleansave_base_url          = 'http://cache-02.cleanprint.net';
+$cleansave_base_url          = is_ssl() ? 'https://cache-01-secure.cleanprint.net' : 'http://cache-02.cleanprint.net';
 $cleansave_publisher_key     = 'cleansave-wp';
 $cleansave_edit_buttons      = 'group:edit';
 $cleansave_social_buttons    = 'group:share';

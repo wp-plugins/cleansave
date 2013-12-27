@@ -3,8 +3,8 @@ Contributors: johncadams, lucascolin
 Donate link: http://www.formatdynamics.com/aboutus-contactus.php
 Tags: pdf, print, printing, kindle, widget, email, save, optimize, output, edit, editing, eco-friendly, environmental, sustainable, reader, iPad, tablet, saving, ecological, eco, ink, social, output, plugin, saver, box, box.net, box.com, dropbox, rtf, readlater, instapaper, cloud, google docs, google drive, google cloud print
 Requires at least: 2.0.2
-Tested up to: 3.5.1
-Stable tag: 1.3.0
+Tested up to: 3.8
+Stable tag: 1.4.0
   
 CleanSave - Save web page content to your Kindle, Box, Google Drive, Dropbox, Google Cloud Print, print, PDF, text and email
 
@@ -43,89 +43,33 @@ Users can easily edit content, save to PDF or a Text file or upload to their Kin
 1. Log into your WordPress installation as an administrator.
 2. On the navigation on the left hand side, click 'Plugins', then 'Add New' from the menu.
 3. Enable the CleanSave plugin.
-4. Visit the CleanSave Settings page, select the appropriate options and click "Save Changes".
-5. To remove ads from CleanSave go to http://www.formatdynamics.com/diypub-adfree/ and sign up.
+4. Visit the CleanSave Settings page, select the appropriate options and click 'Save Changes'.
+5. To remove ads from CleanSave go to http://www.formatdynamics.com/diypub-adfree and sign up. 
+   Upon receipt of your registration ads will be removed automatically.
+
 
 <h4>Using Your Own Buttons</h4>
-
-If you prefer to use your own link or button instead of one of the provided buttons you may do so by:
+If you prefer to use your own text links or buttons you may do so but it does
+require a deeper understanding of WordPress administration and HTML.  This information can be found in
+WordPress documentation found elsewhere:
 
 1. Hide the buttons under Button Styles in the CleanSave Settings page.
 2. Insert a hyperlink into your page as per the example below:
-   * &lt;a href='.' onClick='CleanSave();  return false' title='Save page'&gt;Save&lt;/a&gt;
-   * &lt;a href='.' onClick='CleanEmail(); return false' title='Email page'&gt;Email&lt;/a&gt;
-   * &lt;a href='.' onClick='CleanPDF();   return false' title='PDF page'&gt;PDF&lt;/a&gt;
-   * &lt;a href='.' onClick='CleanPrint(); return false' title='Print page'&gt;Print&lt;/a&gt;
-   
-Below are paths to each of our standard Save buttons.
-
-    Large/Black        : http://cache-02.cleanprint.net/media/pfviewer/images/CleanSaveBtn_black.png
-    Large/White        : http://cache-02.cleanprint.net/media/pfviewer/images/CleanSaveBtn_white.png
-    Large/Transparent  : http://cache-02.cleanprint.net/media/pfviewer/images/CleanSaveBtn_transparent.png
-    Large/Text         : http://cache-02.cleanprint.net/media/pfviewer/images/CleanSaveBtn_text.png
-    
-    Medium/Black       : http://cache-02.cleanprint.net/media/pfviewer/images/CleanSaveBtn_black_small.png
-    Medium/Gray        : http://cache-02.cleanprint.net/media/pfviewer/images/CleanSaveBtn_gray_small.png
-    Medium/Text        : http://cache-02.cleanprint.net/media/pfviewer/images/CleanSaveBtn_text_small.png
-    
-    Medium/Chiclet     : http://cache-02.cleanprint.net/media/pfviewer/images/CleanSaveIcn_32x32.png
-    Small/Chiclet      : http://cache-02.cleanprint.net/media/pfviewer/images/CleanSaveIcn_16x16.png
-
-Below are paths to each of our standard PDF buttons.
-
-    Large/Black        : http://cache-02.cleanprint.net/media/pfviewer/images/PdfBtn_black.png
-    Large/White        : http://cache-02.cleanprint.net/media/pfviewer/images/PdfBtn_white.png
-    Large/Transparent  : http://cache-02.cleanprint.net/media/pfviewer/images/PdfBtn_transparent.png
-    Large/Text         : http://cache-02.cleanprint.net/media/pfviewer/images/PdfBtn_text.png
-
-    Medium/Black       : http://cache-02.cleanprint.net/media/pfviewer/images/PdfBtn_black_small.png
-    Medium/Gray        : http://cache-02.cleanprint.net/media/pfviewer/images/PdfBtn_gray_small.png
-    Medium/Text        : http://cache-02.cleanprint.net/media/pfviewer/images/PdfBtn_text_small.png
-    
-    Medium/Chiclet     : http://cache-02.cleanprint.net/media/pfviewer/images/PdfIcn_32x32.png
-    Small/Chiclet      : http://cache-02.cleanprint.net/media/pfviewer/images/PdfIcn_16x16.png
-    
-Below are paths to each of our standard Email buttons.
-
-    Large/Black        : http://cache-02.cleanprint.net/media/pfviewer/images/EmailBtn_black.png
-    Large/White        : http://cache-02.cleanprint.net/media/pfviewer/images/EmailBtn_white.png
-    Large/Transparent  : http://cache-02.cleanprint.net/media/pfviewer/images/EmailBtn_transparent.png
-    Large/Text         : http://cache-02.cleanprint.net/media/pfviewer/images/EmailBtn_text.png
-
-    Medium/Black       : http://cache-02.cleanprint.net/media/pfviewer/images/EmailBtn_black_small.png
-    Medium/Gray        : http://cache-02.cleanprint.net/media/pfviewer/images/EmailBtn_gray_small.png
-    Medium/Text        : http://cache-02.cleanprint.net/media/pfviewer/images/EmailBtn_text_small.png
-
-    Medium/Chiclet     : http://cache-02.cleanprint.net/media/pfviewer/images/EmailIcn_32x32.png
-    Small/Chiclet      : http://cache-02.cleanprint.net/media/pfviewer/images/EmailIcn_16x16.png
-
-Below are paths to each of our standard Print buttons.
-
-    Large/Black        : http://cache-02.cleanprint.net/media/pfviewer/images/CleanPrintBtn_black.png
-    Large/White        : http://cache-02.cleanprint.net/media/pfviewer/images/CleanPrintBtn_white.png
-    Large/Transparent  : http://cache-02.cleanprint.net/media/pfviewer/images/CleanPrintBtn_transparent.png
-    Large/Text         : http://cache-02.cleanprint.net/media/pfviewer/images/CleanPrintBtn_text.png
-    
-    Medium/Black       : http://cache-02.cleanprint.net/media/pfviewer/images/CleanPrintBtn_black_small.png
-    Medium/Gray        : http://cache-02.cleanprint.net/media/pfviewer/images/CleanPrintBtn_gray_small.png
-    Medium/Text        : http://cache-02.cleanprint.net/media/pfviewer/images/CleanPrintBtn_text_small.png
-    
-    Medium/Chiclet     : http://cache-02.cleanprint.net/media/pfviewer/images/CleanPrintIcn_32x32.png
-    Small/Chiclet      : http://cache-02.cleanprint.net/media/pfviewer/images/CleanPrintIcn_16x16.png
+   <pre>
+      &lt;a href='.' onClick='CleanSave();  return false' title='Save page' &gt;Save&lt;/a&gt;
+      &lt;a href='.' onClick='CleanEmail(); return false' title='Email page'&gt;Email&lt;/a&gt;
+      &lt;a href='.' onClick='CleanPDF();   return false' title='PDF page'  &gt;PDF&lt;/a&gt;
+      &lt;a href='.' onClick='CleanPrint(); return false' title='Print page'&gt;Print&lt;/a&gt;
+   </pre>
 
 
-<h4>Using The Shortcode Button</h4>
+<h4>Using Shortcode Buttons</h4>
+1. Hide the buttons under Button Styles in the CleanSave Settings page.
+2. Add the shortcode [cleansave_button] to your theme's functions.php file (usually at/near the bottom):
+   <pre>add_shortcode('cleansave_button', 'cleansave_add_button');</pre>
+3. Activate the button(s) in your HTML content, for example to add all 3 buttons:
+   <pre>[cleansave_button save='true' pdf='true' email='true' print='true']</pre>
 
-1. Change the Button Style in the CleanSave Settings page to "Viewer" for all buttons.
-2. Add the shortcode [cleansave_button] to your content.
-3. Add the following to your theme's functions.php file:
-<pre>
-   add_shortcode('cleansave_button', 'cleansave_add_button');
-</pre>
-4. You may enable any of the buttons as follows:
-<pre>
-    [cleansave_button save="true" pdf='true" email="true" print="true"]
-</pre>
 
 
 == Frequently Asked Questions ==
@@ -188,6 +132,9 @@ Visit us at:
 
 
 == Changelog ==
+
+= 1.4.0 =
+* HTTPS support
 
 = 1.3.0 =
 * Kindle support
