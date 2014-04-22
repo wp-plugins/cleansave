@@ -3,8 +3,8 @@ Contributors: johncadams, lucascolin
 Donate link: http://www.formatdynamics.com/aboutus-contactus.php
 Tags: pdf, print, printing, kindle, widget, email, save, optimize, output, edit, editing, eco-friendly, environmental, sustainable, reader, iPad, tablet, saving, ecological, eco, ink, social, output, plugin, saver, box, box.net, box.com, dropbox, rtf, readlater, instapaper, cloud, google docs, google drive, google cloud print
 Requires at least: 2.0.2
-Tested up to: 3.8
-Stable tag: 1.4.0
+Tested up to: 3.9
+Stable tag: 1.4.1
   
 CleanSave - Save web page content to your Kindle, Box, Google Drive, Dropbox, Google Cloud Print, print, PDF, text and email
 
@@ -132,6 +132,9 @@ Visit us at:
 
 
 == Changelog ==
+
+= 1.4.1 =
+* HTTPS host changes
 
 = 1.4.0 =
 * HTTPS support
