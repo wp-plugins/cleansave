@@ -3,7 +3,7 @@
 Plugin Name: CleanSave
 Plugin URI: http://www.formatdynamics.com
 Description: Save web page content to your Kindle, Box, Google Drive, Dropbox, print, PDF, and email
-Version: 1.4.1
+Version: 1.4.2
 Author: Format Dynamics
 Author URI: http://www.formatdynamics.com
 */
@@ -27,10 +27,8 @@ $cleansave_social_buttons    = 'group:share';
 
 // Best not change these (internal-use only)
 $cleansave_loader_url        = $cleansave_base_url . '/cpf/cleanprint';
-$cleansave_images_base_url   = $cleansave_base_url . '/media/pfviewer/images';
 $cleansave_btn_helper_url    = $cleansave_base_url . '/cpf/publisherSignup/js/generateCPFTag.js';
 $cleansave_style_url         = $cleansave_base_url . '/media/pfviewer/css/screen.css';
-$cleansave_def_logo_url      = $cleansave_base_url . '/media/logos/CleanSave.png';
 $cleansave_def_btn_style     = 'Btn_white';
 $cleansave_def_btn_placement = 'tr';
 $cleansave_debug             = false;
@@ -82,7 +80,7 @@ function cleansave_add_settings_section() {
 // WP callback for handling the Logo URL (default/custom) option
 function cleansave_add_settings_field_logo_url_() {
     global $cleansave_options_name;
-    global $cleansave_def_logo_url;
+    $cleansave_def_logo_url = plugins_url('/CleanSave.png',__FILE__);
     
 	$options        = get_option($cleansave_options_name);
 	$logoUrl        = isset($options['logoUrl']) ? $options['logoUrl'] : null;
@@ -103,7 +101,7 @@ function cleansave_add_settings_field_logo_url_() {
 // WP callback for handling the Print Button URL (default/custom) option
 function cleansave_add_settings_field_button_color() {
     global $cleansave_options_name;
-    global $cleansave_images_base_url;
+    $cleansave_images_base_url = plugins_url("/images",__FILE__);
     global $cleansave_btn_helper_url;
     global $cleansave_def_btn_style;
     
@@ -434,7 +432,7 @@ function cleansave_add_query_vars($vars) {
 
 // Clean up the DB properties
 function cleansave_sanitize_options($options) {
-   global $cleansave_def_logo_url;
+   $cleansave_def_logo_url = plugins_url('/CleanSave.png',__FILE__);
    global $optionsVersion;
    
    // Map the customLogo into logoUrl
@@ -492,7 +490,7 @@ function cleansave_is_pagetype() {
 function cleansave_add_content($content) {
 	global $post;
 	global $cleansave_options_name;
-	global $cleansave_images_base_url;
+	$cleansave_images_base_url = plugins_url("/images",__FILE__);
 	global $cleansave_def_btn_style;
 	global $cleansave_def_btn_placement;
 	 	    
@@ -558,7 +556,7 @@ function cleansave_add_content($content) {
 function cleansave_add_save_button() {
     global $post;
     global $cleansave_options_name;
-    global $cleansave_images_base_url;
+    $cleansave_images_base_url = plugins_url("/images",__FILE__);
     global $cleansave_def_btn_style;
 	 	    
     $options     = get_option($cleansave_options_name);
@@ -577,7 +575,7 @@ function cleansave_add_save_button() {
 function cleansave_add_button($atts, $content, $tag) {
     global $post;
     global $cleansave_options_name;
-    global $cleansave_images_base_url;
+    $cleansave_images_base_url = plugins_url("/images",__FILE__);
     global $cleansave_def_btn_style;
 	 	    
     extract( shortcode_atts( array(
@@ -600,7 +598,7 @@ function cleansave_add_button($atts, $content, $tag) {
     if ("{$pdf}"  =="true") $rtn .= "<a href=\".\" onClick=\"CleanPDF  ($postId);return false\" title=\"PDF page\"   class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Pdf$buttonStyle.png\" style=\"padding:0px 1px;\"       /></a>";
     if ("{$email}"=="true") $rtn .= "<a href=\".\" onClick=\"CleanEmail($postId);return false\" title=\"Email page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Email$buttonStyle.png\" style=\"padding:0px 1px;\"     /></a>";
     if ("{$print}"=="true") $rtn .= "<a href=\".\" onClick=\"CleanPrint($postId);return false\" title=\"Print page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanPrint$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
-
+                                                                                                                                                                      
     return $rtn;
 }
 
@@ -611,7 +609,7 @@ function cleansave_wp_head() {
     global $cleansave_options_name;
     global $cleansave_loader_url;
     global $cleansave_publisher_key;
-	global $cleansave_def_logo_url;
+	$cleansave_def_logo_url = plugins_url('/CleanSave.png',__FILE__);
     global $cleansave_edit_buttons;
     global $cleansave_social_buttons;
     global $cleansave_debug;

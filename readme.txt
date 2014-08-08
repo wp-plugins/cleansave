@@ -3,8 +3,7 @@ Contributors: johncadams, lucascolin
 Donate link: http://www.formatdynamics.com/contact-us
 Tags: pdf, print, printing, kindle, widget, email, save, optimize, output, edit, editing, eco-friendly, environmental, sustainable, reader, iPad, tablet, saving, ecological, eco, ink, social, output, plugin, saver, box, box.net, box.com, dropbox, rtf, readlater, instapaper, cloud, google docs, google drive, google cloud print
 Requires at least: 2.0.2
-Tested up to: 3.9
-Stable tag: 1.4.1
+Stable tag: 1.4.2
   
 CleanSave - Save web page content to your Kindle, Box, Google Drive, Dropbox, Google Cloud Print, print, PDF, text and email
 
@@ -44,8 +43,6 @@ Users can easily edit content, save to PDF or a Text file or upload to their Kin
 2. On the navigation on the left hand side, click 'Plugins', then 'Add New' from the menu.
 3. Enable the CleanSave plugin.
 4. Visit the CleanSave Settings page, select the appropriate options and click 'Save Changes'.
-5. To remove ads from CleanSave go to http://www.formatdynamics.com/diypub-adfree and sign up. 
-   Upon receipt of your registration ads will be removed automatically.
 
 
 <h4>Using Your Own Buttons</h4>
@@ -80,7 +77,7 @@ Yes, you can add your own logo in the CleanSave Settings page.  The logo should 
 
 = Can I remove ads from CleanSave? =
 
-Yes, to remove ads from CleanSave go to http://www.formatdynamics.com/diypub-adfree/ and sign up.
+Not at the present time, the ad revenue keeps CleanSave development afloat.
 
 = How do remove the Print, Email and PDF buttons leaving only the Save button? =
 
