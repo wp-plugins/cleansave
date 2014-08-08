@@ -59,19 +59,24 @@ function cleansave_add_options_page() {
 function cleansave_add_settings_section() {
 ?>
     <p>Thanks for installing CleanSave on your site! Below are a few options to customize CleanSave and
-    make it your own.  You can use your logo and choose from a variety of button styles or use your own 
-    buttons. You may also select the location within the page where the button(s) are placed.</p>
+    make it your own.</p>
     
-    <p>You may select which page types that the button(s) should appear on.  <!-- You may also exclude specific
-    pages by entering their comma separated IDs.  NOTE: The ID is visible in the URL when you navigate to
-    that page.--></p>
+    <ol>
+    <li>You can use our logo or your own<br>- (use a http-style URL that you've confirmed works).</li>
     
-    <p>If you would like to place the button(s) in a custom position please see installation instructions.
-    Also, if you choose to use Google Analytics custom event tracking for CleanSave your site <b>MUST</b>
+    <li>You choose from a variety of button styles or use your own custom buttons<br>
+        - (please see installation instructions for custom images).</li> 
+    
+    <li>You may also select the location where the buttons are placed or choose a custom position<br>
+        - (please see installation instructions for custom locations).</li>
+    
+    <li>You may select which page types that the buttons appear on.</li>     
+    </ol>
+    
+    <p>NOTE: If you choose to use Google Analytics custom event tracking for CleanPrint your site <b>MUST</b>
     have Google Analytics running.</p>
-    
-    <p>You can also turn off advertising, visit our site and sign up
-    <a href="http://www.formatdynamics.com/diypub-adfree/" target="adfree">http://www.formatdynamics.com/diypub-adfree/</a>.</p>
+    </ul>
+            
     <?php printf("<tr><td><h2>Logo</h2><hr /></td></tr>");?>
 <?php
 }
@@ -91,10 +96,10 @@ function cleansave_add_settings_field_logo_url_() {
 	printf( "Default<br />\n");
 
 	printf( "<input type='radio' id='plugin_logoUrl' name='%s[logoUrl]' value='custom' %s />", $cleansave_options_name, $customChecked ?"checked='checked'":"");
-	printf( "Custom:");
+	printf( "Custom (fully-qualified URL):");
 	printf( "<input type='text'  id='plugin_logoUrl' name='%s[customLogo]' value='%s' /><br>\n", $cleansave_options_name, $customChecked ? $logoUrl : "");
 	printf( "<td>Logo Preview<br /><div style='background-color:#DDD; border: 1px solid #BBB; padding: 10px; text-align:center;'><img height='40px' src='%s'></div></td>", $customChecked ? $logoUrl : $cleansave_def_logo_url);
-	printf("<tr><td  colspan='3'><h2>Button Styles</h2><hr /></td></tr>");
+	printf("<tr><td  colspan='3'><h2>Button Styles/Locations</h2><hr /></td></tr>");
 }
 
 
@@ -297,7 +302,7 @@ function cleansave_add_settings_field_btn_placement() {
 	
 	printf( "<input type='radio' id='plugin_buttonplacement' name='%s[ButtonPlacement]' value='br' %s />", $cleansave_options_name, $brChecked  ?"checked='checked'":"");
 	printf( "Bottom Right<br />\n");
-	printf("<tr><td colspan='3'><h2>Display Button(s) on the Following:</h2><hr /></td></tr>");  
+	printf("<tr><td colspan='3'><h2>Page Types:</h2><hr /></td></tr>");  
 }
 
 
