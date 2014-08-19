@@ -21,12 +21,11 @@ $cleansave_options_name      = 'CleanSave';
 
 // CleanSave parameters (change these *only* if you know what you're doing)
 $cleansave_base_url          = is_ssl() ? 'https://cache-02.cleanprint.net' : 'http://cache-02.cleanprint.net';
-$cleansave_publisher_key     = 'cleansave-wp';
 $cleansave_edit_buttons      = 'group:edit';
 $cleansave_social_buttons    = 'group:share';
 
 // Best not change these (internal-use only)
-$cleansave_loader_url        = $cleansave_base_url . '/cpf/cleanprint';
+$cleansave_loader_url        = $cleansave_base_url . '/cpf/cleanprint?polite=no&key=cleansave-wp';
 $cleansave_btn_helper_url    = $cleansave_base_url . '/cpf/publisherSignup/js/generateCPFTag.js';
 $cleansave_style_url         = $cleansave_base_url . '/media/pfviewer/css/screen.css';
 $cleansave_def_btn_style     = 'Btn_white';
@@ -62,13 +61,13 @@ function cleansave_add_settings_section() {
     make it your own.</p>
     
     <ol>
-    <li>You can use our logo or your own<br>- (use a http-style URL that you've confirmed works).</li>
+    <li>You can use our logo or your own<br>- use a <i>http-style</i> image URL no larger than 200 x 40.</li>
     
     <li>You choose from a variety of button styles or use your own custom buttons<br>
-        - (please see installation instructions for custom images).</li> 
+        - please see installation instructions for custom images.</li> 
     
     <li>You may also select the location where the buttons are placed or choose a custom position<br>
-        - (please see installation instructions for custom locations).</li>
+        - please see installation instructions for custom locations.</li>
     
     <li>You may select which page types that the buttons appear on.</li>     
     </ol>
@@ -613,7 +612,6 @@ function cleansave_wp_head() {
     global $page_id;
     global $cleansave_options_name;
     global $cleansave_loader_url;
-    global $cleansave_publisher_key;
 	$cleansave_def_logo_url = plugins_url('/CleanSave.png',__FILE__);
     global $cleansave_edit_buttons;
     global $cleansave_social_buttons;
@@ -644,7 +642,7 @@ function cleansave_wp_head() {
     if ($showEmailBtn) $buttons .= ',email';
     if ($showSaveBtn ) $buttons .= ',dropbox,googleDocs,boxDotNet,kindle';
 
-    $buttons = sprintf("&buttons=help,%s,%s,%s", substr($buttons,1),$cleansave_edit_buttons,$cleansave_social_buttons);
+    $buttons = sprintf("&buttons=help,%s,%s,%s", substr($buttons,1), $cleansave_edit_buttons, $cleansave_social_buttons);
     
     if ($cleansave_debug) {
 		printf("\n\n\n<!-- CleanSave Debug\n\t\t%s\n\t\tpage_id:%s, home:%d, front:%d, category:%d, single:%d, page:%d, tag:%d\n-->\n\n\n",
@@ -678,8 +676,8 @@ function cleansave_wp_head() {
     printf( "   }\n");
     printf( "</script>\n");
 	
-	printf( "<script id='cpf_loader' type='text/javascript' src='%s?key=%s&logo=%s%s'></script>\n", 
-	           $cleansave_loader_url, urlencode($cleansave_publisher_key), urlencode($logoUrl), $buttons);
+	printf( "<script id='cpf_loader' type='text/javascript' src='%s&logo=%s%s'></script>\n",
+			 $cleansave_loader_url, urlencode($logoUrl), $buttons);
 }
 
 
@@ -699,11 +697,11 @@ function cleansave_add_action_links($links, $file) {
 // Activate CleanSave, migrate any old options here
 function cleansave_activate() {
    // cannot use the global, chicken/egg problem
-   $options        = get_option('CleanSave');
-   $optionsVersion = '1.0';
-   
+   $options            = get_option('CleanSave');
+   $optionsVersion     = '1.0';
+      
    if (isset($options)) {
-      $options['version'] = $optionsVersion;      
+      $options['version'] = $optionsVersion;
       update_option('CleanSave', $options);
    }
 }

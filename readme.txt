@@ -77,7 +77,7 @@ Yes, you can add your own logo in the CleanSave Settings page.  The logo should 
 
 = Can I remove ads from CleanSave? =
 
-Not at the present time, the ad revenue keeps CleanSave development afloat.
+Not at the present time. Ads help us pay the bills. CleanPrint is primarily supported by advertising which allows us to cover costs while offering you content output tools that save paper, ink, money and the environment.
 
 = How do remove the Print, Email and PDF buttons leaving only the Save button? =
 
@@ -99,12 +99,9 @@ This can be tricky depending upon your WordPress knowledge and requires you to s
 
 You have two options:
 <ol>
-   <li>Visit any of our publisher partners, locate an article and press their print button:
-   <ul>
-      <li>http://www.nbcnews.com</li>
-      <li>http://www.cnn.com</li>
-      <li>http://msn.foxsports.com</li>
-      <li>http://www.slate.com</li>
+   <li>Visit our website and try it out:
+   	<ul>
+      <li>http://www.formatdynamics.com/cleanprint-4-0</li>      
    </ul></li>
    <li>Install our free browser tool and try it anywhere yourself.
    <ul>
@@ -116,7 +113,7 @@ You have two options:
 
 Visit us at:
 <ul>
-   <li><a href="http://www.formatdynamics.com">FormatDynamics.com</a></li>
+   <li><a href="http://www.formatdynamics.com/cleanprint-4-0">FormatDynamics.com</a></li>
    <li><a href="http://www.facebook.com/pages/CleanPrint/131304880322920?sk=app_162498273831267">Facebook</a></li>
 </ul>
 
@@ -129,6 +126,9 @@ Visit us at:
 
 
 == Changelog ==
+
+= 1.4.2 =
+* Improved page-load performance
 
 = 1.4.1 =
 * HTTPS host changes
