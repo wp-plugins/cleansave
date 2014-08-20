@@ -393,7 +393,6 @@ function cleansave_add_settings_field_tags() {
     printf( "<option value='exclude' %s>Exclude</option>", (!$isChecked ?"selected='selected'":""));
     printf( "</select>");
     printf( "<i> - i.e. is_tag()</i>");
-    printf("<tr><td colspan='3'><h2>Google Analytics</h2><hr /></td></tr>");
 }
 
 
@@ -404,7 +403,8 @@ function cleansave_add_settings_field_excludes() {
     $excludes    = isset($options['PagesExcludes']) ? $options['PagesExcludes'] : "";
     
     printf( "<input type='text' id='plugin_excludes' name='%s[PagesExcludes]' value='%s' /><br>\n", $cleansave_options_name, $excludes);
-//  printf("<tr><td colspan='3'><h2>Google Analytics</h2><hr /></td></tr>");  
+    printf( "<i>(comma separated)</i>");
+    printf("<tr><td colspan='3'><h2>Google Analytics</h2><hr /></td></tr>");  
 }
 
 
@@ -463,16 +463,15 @@ function cleansave_is_pagetype() {
     $posts         = isset($options['PostsInclude'    ]) ? $options['PostsInclude'    ] : null;
     $pages         = isset($options['PagesInclude'    ]) ? $options['PagesInclude'    ] : null;
     $tags          = isset($options['TagsInclude'     ]) ? $options['TagsInclude'     ] : null;
-/*  $excludes      = isset($options['PagesExcludes'   ]) ? $options['PagesExcludes'   ] : null;
+    $excludes      = isset($options['PagesExcludes'   ]) ? $options['PagesExcludes'   ] : null;
     
-    if (isset($excludes) && isset($page_id)) {
+	if (isset($excludes) && isset($page_id)) {
        $IDs = explode(",", $excludes);
-       $len = count($IDs);
-       for ($i=0; $i<$len; $i++) {
-          if ($page_id == $IDs[$i]) return false;
+       foreach ($IDs as $id) {
+          if ($page_id == $id) return false;
        }
     }
-*/    
+ 
     $isHomeChecked = !isset($homepage)  || $homepage =='include';
     $isFrntChecked = !isset($frontpage) || $frontpage=='include';
     $isCatgChecked = !isset($category)  || $category =='include';
@@ -559,15 +558,17 @@ function cleansave_add_save_button() {
     global $cleansave_options_name;
     $cleansave_images_base_url = plugins_url("/images",__FILE__);
     global $cleansave_def_btn_style;
-	 	    
-    $options     = get_option($cleansave_options_name);
-    $buttonStyle = isset($options['buttonStyle']) ? $options['buttonStyle'] : null; 
-        
-    if (!isset($buttonStyle)) {
-        $buttonStyle = $cleansave_def_btn_style;
-    }
 
-    return "<a href=\".\" onClick=\"WpCsCleanSave();return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+	if (cleansave_is_pagetype()) {	 	    
+    	$options     = get_option($cleansave_options_name);
+    	$buttonStyle = isset($options['buttonStyle']) ? $options['buttonStyle'] : null; 
+        
+    	if (!isset($buttonStyle)) {
+        	$buttonStyle = $cleansave_def_btn_style;
+    	}
+
+    	return "<a href=\".\" onClick=\"WpCsCleanSave();return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+	}
 }
 
 
@@ -584,20 +585,22 @@ function cleansave_add_button($atts, $content, $tag) {
         'print' => 'false',        
 	), $atts ) );
 	 	    
-    $options     = get_option($cleansave_options_name);
-    $buttonStyle = isset($options['buttonStyle']) ? $options['buttonStyle'] : null;
-    $rtn         = ""; 
+	if (cleansave_is_pagetype()) {
+    	$options     = get_option($cleansave_options_name);
+    	$buttonStyle = isset($options['buttonStyle']) ? $options['buttonStyle'] : null;
+    	$rtn         = ""; 
         
-    if (!isset($buttonStyle)) {
-        $buttonStyle = $cleansave_def_btn_style;
-    }
+    	if (!isset($buttonStyle)) {
+        	$buttonStyle = $cleansave_def_btn_style;
+    	}
     
-    if ("{$save}" =="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanSave();return false\" title=\"Save page\"  class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\" /></a>";
-    if ("{$pdf}"  =="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanPrintGeneratePdf();return false\" title=\"PDF page\"   class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Pdf$buttonStyle.png\" style=\"padding:0px 1px;\"       /></a>";
-    if ("{$email}"=="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanPrintSendEmail();return false\" title=\"Email page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Email$buttonStyle.png\" style=\"padding:0px 1px;\"     /></a>";
-    if ("{$print}"=="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanPrintPrintHtml();return false\" title=\"Print page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanPrint$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+    	if ("{$save}" =="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanSave();return false\" title=\"Save page\"  class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\" /></a>";
+    	if ("{$pdf}"  =="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanPrintGeneratePdf();return false\" title=\"PDF page\"   class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Pdf$buttonStyle.png\" style=\"padding:0px 1px;\"       /></a>";
+    	if ("{$email}"=="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanPrintSendEmail();return false\" title=\"Email page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Email$buttonStyle.png\" style=\"padding:0px 1px;\"     /></a>";
+    	if ("{$print}"=="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanPrintPrintHtml();return false\" title=\"Print page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanPrint$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
                                                                                                                                                                       
-    return $rtn;
+    	return $rtn;
+	}
 }
 
 
@@ -742,7 +745,7 @@ function cleansave_admin_init() {
     add_settings_field     ('plugin_posts',           '<strong>Posts:</strong>',                     'cleansave_add_settings_field_posts',         $cleansave_plugin_name, 'plugin_main');
     add_settings_field     ('plugin_pages',           '<strong>Pages:</strong>',                     'cleansave_add_settings_field_pages',         $cleansave_plugin_name, 'plugin_main');
     add_settings_field     ('plugin_tags',            '<strong>Tags:</strong>',                      'cleansave_add_settings_field_tags',          $cleansave_plugin_name, 'plugin_main');
-//  add_settings_field     ('plugin_excludes',        '<strong>Excluded Page IDs:</strong>',         'cleansave_add_settings_field_excludes',      $cleansave_plugin_name, 'plugin_main');
+    add_settings_field     ('plugin_excludes',        '<strong>Excluded Page IDs:</strong>',         'cleansave_add_settings_field_excludes',      $cleansave_plugin_name, 'plugin_main');
     add_settings_field     ('plugin_gaOption',        '<strong>CleanPrint Event Tracking:</strong>', 'cleansave_add_settings_field_ga',            $cleansave_plugin_name, 'plugin_main');
 }
 
