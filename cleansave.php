@@ -699,7 +699,14 @@ function cleansave_activate() {
    $optionsVersion     = '1.0';
       
    if (isset($options)) {
-      $options['version'] = $optionsVersion;
+      $options['version'] = $optionsVersion;      
+
+      // Unset the logoUrl if we have the older default URL      
+      $logoUrl = isset($options['logoUrl']) ? $options['logoUrl'] : null;      
+      if (isset($logoUrl) && $logoUrl=="http://cache-02.cleanprint.net/media/logos/Default.png") {
+         unset($options['logoUrl']); // Not sure this is working but its getting called
+      }
+
       update_option('CleanSave', $options);
    }
 }
