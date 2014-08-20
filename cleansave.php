@@ -61,7 +61,7 @@ function cleansave_add_settings_section() {
     make it your own.</p>
     
     <ol>
-    <li>You can use our logo or your own<br>- use a <i>http-style</i> image URL no larger than 200 x 40.</li>
+    <li>You can use our logo or your own<br>- use a <i>http-style</i> image URL with the image size no larger than 200 x 40.</li>
     
     <li>You choose from a variety of button styles or use your own custom buttons<br>
         - please see installation instructions for custom images.</li> 
@@ -518,19 +518,19 @@ function cleansave_add_content($content) {
         }
 
         if ($showSaveBtn) {
-            $buttons .= "<a href=\".\" onClick=\"WpCleanSave();return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+            $buttons .= "<a href=\".\" onClick=\"WpCsCleanSave();return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
         }
 
         if ($showPdfBtn) {
-            $buttons .= "<a href=\".\" onClick=\"WpCleanPDF();return false\" title=\"PDF page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Pdf$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+            $buttons .= "<a href=\".\" onClick=\"WpCsCleanPrintGeneratePdf();return false\" title=\"PDF page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Pdf$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
         }
 
         if ($showEmailBtn) {
-            $buttons .= "<a href=\".\" onClick=\"WpCleanEmail();return false\" title=\"Email page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Email$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+            $buttons .= "<a href=\".\" onClick=\"WpCsCleanPrintSendEmail();return false\" title=\"Email page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Email$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
         }
         
         if ($showPrintBtn) {
-            $buttons .= "<a href=\".\" onClick=\"WpCleanPrint();return false\" title=\"Print page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanPrint$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+            $buttons .= "<a href=\".\" onClick=\"WpCsCleanPrintPrintHtml();return false\" title=\"Print page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanPrint$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
         }
 
         
@@ -567,7 +567,7 @@ function cleansave_add_save_button() {
         $buttonStyle = $cleansave_def_btn_style;
     }
 
-    return "<a href=\".\" onClick=\"WpCleanSave();return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+    return "<a href=\".\" onClick=\"WpCsCleanSave();return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
 }
 
 
@@ -592,10 +592,10 @@ function cleansave_add_button($atts, $content, $tag) {
         $buttonStyle = $cleansave_def_btn_style;
     }
     
-    if ("{$save}" =="true") $rtn .= "<a href=\".\" onClick=\"WpCleanSave ();return false\" title=\"Save page\"  class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\" /></a>";
-    if ("{$pdf}"  =="true") $rtn .= "<a href=\".\" onClick=\"WpCleanPDF  ();return false\" title=\"PDF page\"   class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Pdf$buttonStyle.png\" style=\"padding:0px 1px;\"       /></a>";
-    if ("{$email}"=="true") $rtn .= "<a href=\".\" onClick=\"WpCleanEmail();return false\" title=\"Email page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Email$buttonStyle.png\" style=\"padding:0px 1px;\"     /></a>";
-    if ("{$print}"=="true") $rtn .= "<a href=\".\" onClick=\"WpCleanPrint();return false\" title=\"Print page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanPrint$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+    if ("{$save}" =="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanSave();return false\" title=\"Save page\"  class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\" /></a>";
+    if ("{$pdf}"  =="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanPrintGeneratePdf();return false\" title=\"PDF page\"   class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Pdf$buttonStyle.png\" style=\"padding:0px 1px;\"       /></a>";
+    if ("{$email}"=="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanPrintSendEmail();return false\" title=\"Email page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Email$buttonStyle.png\" style=\"padding:0px 1px;\"     /></a>";
+    if ("{$print}"=="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanPrintPrintHtml();return false\" title=\"Print page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanPrint$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
                                                                                                                                                                       
     return $rtn;
 }
@@ -645,26 +645,26 @@ function cleansave_wp_head() {
 					               http_build_query($options,"","\n\t\t"), $page_id, is_home(), is_front_page(), is_category(), is_single(), is_page(), is_tag());
 	}
 		
-    printf( "<script id='cpf_wp' type='text/javascript'>\n");
-    printf( "   function WpCleanSave() {\n");
+    printf( "<script id='cpf_wp_cs' type='text/javascript'>\n");
+    printf( "   function WpCsCleanSave() {\n");
     printf( "   	CleanPrintPrintHtml(null,$postId);\n");
 						if ($GASetting=="true") {
 							printf( "   try { _gaq.push(['_trackEvent', 'CleanPrint', 'Save']); } catch(e) {}\n");
 						}
     printf( "   }\n");
-    printf( "   function WpCleanEmail() {\n");
+    printf( "   function WpCsCleanPrintSendEmail() {\n");
     printf( "   	CleanPrintSendEmail(null,$postId);\n");
 						if ($GASetting=="true") {
 							printf( "   try { _gaq.push(['_trackEvent', 'CleanPrint', 'Email']); } catch(e) {}\n");
 						}
     printf( "   }\n");
-    printf( "   function WpCleanPDF() {\n");
+    printf( "   function WpCsCleanPrintGeneratePdf() {\n");
     printf( "   	CleanPrintGeneratePdf(null,$postId);\n");
 						if ($GASetting=="true") {
 							printf( "   try { _gaq.push(['_trackEvent', 'CleanPrint', 'PDF']); } catch(e) {}\n");
 						}
     printf( "   }\n");
-    printf( "   function WpCleanPrint() {\n");
+    printf( "   function WpCsCleanPrintPrintHtml() {\n");
     printf( "       CleanPrintPrintHtml(null,$postId);\n");
                         if ($GASetting=="true") {
                             printf( "   try { _gaq.push(['_trackEvent', 'CleanPrint', 'Print']); } catch(e) {}\n");
