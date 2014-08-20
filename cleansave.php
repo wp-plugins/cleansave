@@ -105,12 +105,12 @@ function cleansave_add_settings_field_logo_url_() {
 // WP callback for handling the Print Button URL (default/custom) option
 function cleansave_add_settings_field_button_color() {
     global $cleansave_options_name;
-    $cleansave_images_base_url = plugins_url("/images",__FILE__);
     global $cleansave_btn_helper_url;
     global $cleansave_def_btn_style;
     
 	$options     = get_option($cleansave_options_name);
 	$buttonStyle = isset($options['buttonStyle']) ? $options['buttonStyle'] : null;
+	$imagesUrl   = plugins_url("/images",__FILE__);    
 	
 	if(!isset($buttonStyle)) {
         $buttonStyle = $cleansave_def_btn_style;
@@ -137,10 +137,10 @@ function cleansave_add_settings_field_button_color() {
     printf("function changeButtons(select) {");
 	printf("var index = select.selectedIndex;");
 	printf("var value = select.options[index].value;");
-	printf("var saveUrl  = '$cleansave_images_base_url/CleanSave'  + value + '.png';");
-    printf("var cpUrl    = '$cleansave_images_base_url/CleanPrint' + value + '.png';");
-	printf("var pdfUrl   = '$cleansave_images_base_url/Pdf'        + value + '.png';");
-	printf("var emailUrl = '$cleansave_images_base_url/Email'      + value + '.png';");
+	printf("var saveUrl  = '$imagesUrl/CleanSave'  + value + '.png';");
+    printf("var cpUrl    = '$imagesUrl/CleanPrint' + value + '.png';");
+	printf("var pdfUrl   = '$imagesUrl/Pdf'        + value + '.png';");
+	printf("var emailUrl = '$imagesUrl/Email'      + value + '.png';");
     printf("document.getElementById('pageSaveImg') .src = saveUrl;");
     printf("document.getElementById('pagePrintImg').src = cpUrl;");
 	printf("document.getElementById('pagePdfImg')  .src = pdfUrl;");
@@ -180,10 +180,10 @@ function cleansave_add_settings_field_button_color() {
     
     
 	printf("<td rowspan='5'>Page Preview<br /><div style='border:1px solid #BBB; padding:10px; text-align:center; width:450px;'>");
-	printf("<img id='pageSaveImg'  src='$cleansave_images_base_url/CleanSave$buttonStyle.png'  style='padding:0px 1px; %s'/>", ($savePage  ? "" : "display:none"));
-    printf("<img id='pagePdfImg'   src='$cleansave_images_base_url/Pdf$buttonStyle.png'        style='padding:0px 1px; %s'/>", ($pdfPage   ? "" : "display:none"));
-    printf("<img id='pageEmailImg' src='$cleansave_images_base_url/Email$buttonStyle.png'      style='padding:0px 1px; %s'/>", ($emailPage ? "" : "display:none"));
-    printf("<img id='pagePrintImg' src='$cleansave_images_base_url/CleanPrint$buttonStyle.png' style='padding:0px 1px; %s'/>", ($printPage ? "" : "display:none"));
+	printf("<img id='pageSaveImg'  src='$imagesUrl/CleanSave$buttonStyle.png'  style='padding:0px 1px; %s'/>", ($savePage  ? "" : "display:none"));
+    printf("<img id='pagePdfImg'   src='$imagesUrl/Pdf$buttonStyle.png'        style='padding:0px 1px; %s'/>", ($pdfPage   ? "" : "display:none"));
+    printf("<img id='pageEmailImg' src='$imagesUrl/Email$buttonStyle.png'      style='padding:0px 1px; %s'/>", ($emailPage ? "" : "display:none"));
+    printf("<img id='pagePrintImg' src='$imagesUrl/CleanPrint$buttonStyle.png' style='padding:0px 1px; %s'/>", ($printPage ? "" : "display:none"));
     printf("</div><br />");
 
     printf("Viewer Preview<br /><div style='border:1px solid #BBB; padding:10px; text-align:center; width:60px;'>");
@@ -465,7 +465,7 @@ function cleansave_is_pagetype() {
     $tags          = isset($options['TagsInclude'     ]) ? $options['TagsInclude'     ] : null;
     $excludes      = isset($options['PagesExcludes'   ]) ? $options['PagesExcludes'   ] : null;
     
-	if (isset($excludes) && isset($page_id)) {
+	if (is_page() && isset($excludes) && isset($page_id)) {
        $IDs = explode(",", $excludes);
        foreach ($IDs as $id) {
           if ($page_id == $id) return false;
@@ -491,8 +491,8 @@ function cleansave_is_pagetype() {
 
 // Add the hooks for print functionality
 function cleansave_add_content($content) {
-	global $cleansave_options_name;
-	$cleansave_images_base_url = plugins_url("/images",__FILE__);
+	global $post;
+    global $cleansave_options_name;
 	global $cleansave_def_btn_style;
 	global $cleansave_def_btn_placement;
 	 	    
@@ -512,24 +512,27 @@ function cleansave_add_content($content) {
     
     
 	if (cleansave_is_pagetype()) {
-	   if (!isset($buttonStyle)) {
+		$postId    = isset($post) && isset($post->ID) ? sprintf("'post-%s'",$post->ID) : null;
+		$imagesUrl = plugins_url("/images",__FILE__);	
+	
+	   	if (!isset($buttonStyle)) {
             $buttonStyle = $cleansave_def_btn_style;
         }
 
         if ($showSaveBtn) {
-            $buttons .= "<a href=\".\" onClick=\"WpCsCleanSave();return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+            $buttons .= "<a href=\".\" onClick=\"WpCsCleanSave($postId);return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
         }
 
         if ($showPdfBtn) {
-            $buttons .= "<a href=\".\" onClick=\"WpCsCleanPrintGeneratePdf();return false\" title=\"PDF page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Pdf$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+            $buttons .= "<a href=\".\" onClick=\"WpCsCleanPrintGeneratePdf($postId);return false\" title=\"PDF page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/Pdf$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
         }
 
         if ($showEmailBtn) {
-            $buttons .= "<a href=\".\" onClick=\"WpCsCleanPrintSendEmail();return false\" title=\"Email page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Email$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+            $buttons .= "<a href=\".\" onClick=\"WpCsCleanPrintSendEmail($postId);return false\" title=\"Email page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/Email$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
         }
         
         if ($showPrintBtn) {
-            $buttons .= "<a href=\".\" onClick=\"WpCsCleanPrintPrintHtml();return false\" title=\"Print page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanPrint$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+            $buttons .= "<a href=\".\" onClick=\"WpCsCleanPrintPrintHtml($postId);return false\" title=\"Print page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/CleanPrint$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
         }
 
         
@@ -555,27 +558,29 @@ function cleansave_add_content($content) {
 
 // Adds the CleanSave save button for use by a shortcode
 function cleansave_add_save_button() {
+	global $post;
     global $cleansave_options_name;
-    $cleansave_images_base_url = plugins_url("/images",__FILE__);
     global $cleansave_def_btn_style;
 
 	if (cleansave_is_pagetype()) {	 	    
+		$postId      = isset($post) && isset($post->ID) ? sprintf("'post-%s'",$post->ID) : null;
     	$options     = get_option($cleansave_options_name);
     	$buttonStyle = isset($options['buttonStyle']) ? $options['buttonStyle'] : null; 
+    	$imagesUrl   = plugins_url("/images",__FILE__);
         
     	if (!isset($buttonStyle)) {
         	$buttonStyle = $cleansave_def_btn_style;
     	}
 
-    	return "<a href=\".\" onClick=\"WpCsCleanSave();return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+    	return "<a href=\".\" onClick=\"WpCsCleanSave($postId);return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
 	}
 }
 
 
 // Adds any CleanSave button for use by a shortcode
 function cleansave_add_button($atts, $content, $tag) {
+	global $post;
     global $cleansave_options_name;
-    $cleansave_images_base_url = plugins_url("/images",__FILE__);
     global $cleansave_def_btn_style;
 	 	    
     extract( shortcode_atts( array(
@@ -586,18 +591,20 @@ function cleansave_add_button($atts, $content, $tag) {
 	), $atts ) );
 	 	    
 	if (cleansave_is_pagetype()) {
+		$postId      = isset($post) && isset($post->ID) ? sprintf("'post-%s'",$post->ID) : null;
     	$options     = get_option($cleansave_options_name);
     	$buttonStyle = isset($options['buttonStyle']) ? $options['buttonStyle'] : null;
+    	$imagesUrl   = plugins_url("/images",__FILE__);    
     	$rtn         = ""; 
         
     	if (!isset($buttonStyle)) {
         	$buttonStyle = $cleansave_def_btn_style;
     	}
     
-    	if ("{$save}" =="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanSave();return false\" title=\"Save page\"  class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\" /></a>";
-    	if ("{$pdf}"  =="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanPrintGeneratePdf();return false\" title=\"PDF page\"   class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Pdf$buttonStyle.png\" style=\"padding:0px 1px;\"       /></a>";
-    	if ("{$email}"=="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanPrintSendEmail();return false\" title=\"Email page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/Email$buttonStyle.png\" style=\"padding:0px 1px;\"     /></a>";
-    	if ("{$print}"=="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanPrintPrintHtml();return false\" title=\"Print page\" class=\"cleanprint-exclude\"><img src=\"$cleansave_images_base_url/CleanPrint$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+    	if ("{$save}" =="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanSave($postId);            return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\" /></a>";
+    	if ("{$pdf}"  =="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanPrintGeneratePdf($postId);return false\" title=\"PDF page\"  class=\"cleanprint-exclude\"><img src=\"$imagesUrl/Pdf$buttonStyle.png\" style=\"padding:0px 1px;\"       /></a>";
+    	if ("{$email}"=="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanPrintSendEmail($postId); return false\" title=\"Email page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/Email$buttonStyle.png\" style=\"padding:0px 1px;\"     /></a>";
+    	if ("{$print}"=="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanPrintPrintHtml($postId); return false\" title=\"Print page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/CleanPrint$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
                                                                                                                                                                       
     	return $rtn;
 	}
@@ -607,7 +614,6 @@ function cleansave_add_button($atts, $content, $tag) {
 // Adds the CleanPrint script tags to the head section
 function cleansave_wp_head() {
     global $page_id;
-    global $post;
     global $cleansave_options_name;
     global $cleansave_loader_url;
 	$cleansave_def_logo_url = plugins_url('/CleanSave.png',__FILE__);
@@ -618,7 +624,6 @@ function cleansave_wp_head() {
     $options      = get_option($cleansave_options_name);
 	$GASetting    = isset($options['GASetting']) ? $options['GASetting'] : null;
     $logoUrl      = isset($options['logoUrl'])   ? $options['logoUrl']   : null;
-    $postId       = isset($post) && isset($post->ID) ? sprintf("'post-%s'",$post->ID) : null; 
 		
     $showPrintBtn = !isset($options['PrintInclude']) || $options['PrintInclude']!='exclude';
     $showPdfBtn   = !isset($options['PDFInclude'  ]) || $options['PDFInclude'  ]!='exclude';
@@ -626,6 +631,12 @@ function cleansave_wp_head() {
     $showSaveBtn  = !isset($options['SaveInclude' ]) || $options['SaveInclude' ]!='exclude';
     $buttons      = '';
 
+	if ($cleansave_debug) {
+		printf("\n\n\n<!-- CleanSave Debug\n\t\t%s\n\t\tpage_id:%s, the_ID:%d, home:%d, front:%d, category:%d, single:%d, page:%d, tag:%d\n-->\n\n\n",
+					               http_build_query($options,"","\n\t\t"), $page_id, the_ID(), is_home(), is_front_page(), is_category(), is_single(), is_page(), is_tag());
+	}
+		
+    
     if (cleansave_is_pagetype() == false) {
        // Disabled page type
        return;
@@ -643,32 +654,27 @@ function cleansave_wp_head() {
 
     $buttons = sprintf("help,%s,%s,%s", substr($buttons,1), $cleansave_edit_buttons, $cleansave_social_buttons);
     
-    if ($cleansave_debug) {
-		printf("\n\n\n<!-- CleanSave Debug\n\t\t%s\n\t\tpage_id:%s, home:%d, front:%d, category:%d, single:%d, page:%d, tag:%d\n-->\n\n\n",
-					               http_build_query($options,"","\n\t\t"), $page_id, is_home(), is_front_page(), is_category(), is_single(), is_page(), is_tag());
-	}
-		
     printf( "<script id='cpf_wp_cs' type='text/javascript'>\n");
-    printf( "   function WpCsCleanSave() {\n");
-    printf( "   	CleanPrintPrintHtml(null,$postId);\n");
+    printf( "   function WpCsCleanSave(articleId) {\n");
+    printf( "   	CleanPrintPrintHtml(null,articleId);\n");
 						if ($GASetting=="true") {
 							printf( "   try { _gaq.push(['_trackEvent', 'CleanPrint', 'Save']); } catch(e) {}\n");
 						}
     printf( "   }\n");
-    printf( "   function WpCsCleanPrintSendEmail() {\n");
-    printf( "   	CleanPrintSendEmail(null,$postId);\n");
+    printf( "   function WpCsCleanPrintSendEmail(articleId) {\n");
+    printf( "   	CleanPrintSendEmail(null,articleId);\n");
 						if ($GASetting=="true") {
 							printf( "   try { _gaq.push(['_trackEvent', 'CleanPrint', 'Email']); } catch(e) {}\n");
 						}
     printf( "   }\n");
-    printf( "   function WpCsCleanPrintGeneratePdf() {\n");
-    printf( "   	CleanPrintGeneratePdf(null,$postId);\n");
+    printf( "   function WpCsCleanPrintGeneratePdf(articleId) {\n");
+    printf( "   	CleanPrintGeneratePdf(null,articleId);\n");
 						if ($GASetting=="true") {
 							printf( "   try { _gaq.push(['_trackEvent', 'CleanPrint', 'PDF']); } catch(e) {}\n");
 						}
     printf( "   }\n");
-    printf( "   function WpCsCleanPrintPrintHtml() {\n");
-    printf( "       CleanPrintPrintHtml(null,$postId);\n");
+    printf( "   function WpCsCleanPrintPrintHtml(articleId) {\n");
+    printf( "       CleanPrintPrintHtml(null,articleId);\n");
                         if ($GASetting=="true") {
                             printf( "   try { _gaq.push(['_trackEvent', 'CleanPrint', 'Print']); } catch(e) {}\n");
                         }
