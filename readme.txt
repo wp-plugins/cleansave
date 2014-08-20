@@ -129,6 +129,7 @@ Visit us at:
 
 = 1.4.2 =
 * Improved page-load performance
+* Added Page excludes
 
 = 1.4.1 =
 * HTTPS host changes

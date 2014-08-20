@@ -18,16 +18,12 @@ $cleansave_plugin_file       = $cleansave_plugin_name . '/cleansave.php';
 $cleansave_plugin_attr       = 'plugin';
 $cleansave_print_attr        = 'print';
 $cleansave_options_name      = 'CleanSave';
-
-// CleanSave parameters (change these *only* if you know what you're doing)
 $cleansave_base_url          = is_ssl() ? 'https://cache-02.cleanprint.net' : 'http://cache-02.cleanprint.net';
-$cleansave_edit_buttons      = 'group:edit';
-$cleansave_social_buttons    = 'group:share';
-
-// Best not change these (internal-use only)
 $cleansave_loader_url        = $cleansave_base_url . '/cpf/cleanprint?polite=no&key=cleansave-wp';
 $cleansave_btn_helper_url    = $cleansave_base_url . '/cpf/publisherSignup/js/generateCPFTag.js';
 $cleansave_style_url         = $cleansave_base_url . '/media/pfviewer/css/screen.css';
+$cleansave_edit_buttons      = 'group:edit';
+$cleansave_social_buttons    = 'group:share';
 $cleansave_def_btn_style     = 'Btn_white';
 $cleansave_def_btn_placement = 'tr';
 $cleansave_debug             = false;
