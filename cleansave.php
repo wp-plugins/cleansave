@@ -79,21 +79,21 @@ function cleansave_add_settings_section() {
 
 // WP callback for handling the Logo URL (default/custom) option
 function cleansave_add_settings_field_logo_url_() {
-    global $cleansave_options_name;
-    $cleansave_def_logo_url = plugins_url('/CleanSave.png',__FILE__);
+    global $cleansave_options_name;    
     
 	$options        = get_option($cleansave_options_name);
 	$logoUrl        = isset($options['logoUrl']) ? $options['logoUrl'] : null;
-    $customChecked  = isset($logoUrl) && $logoUrl!=$cleansave_def_logo_url;
+	$defLogoUrl     = plugins_url('/CleanSave.png',__FILE__);
+    $customChecked  = isset($logoUrl) && $logoUrl!=$defLogoUrl;
     $defaultChecked = !$customChecked;
 
-    printf( "<input type='radio' id='plugin_logoUrl' name='%s[logoUrl]' value='%s' %s />", $cleansave_options_name, $cleansave_def_logo_url, $defaultChecked?"checked='checked'":"");
+    printf( "<input type='radio' id='plugin_logoUrl' name='%s[logoUrl]' value='%s' %s />", $cleansave_options_name, $defLogoUrl, $defaultChecked?"checked='checked'":"");
 	printf( "Default<br />\n");
 
 	printf( "<input type='radio' id='plugin_logoUrl' name='%s[logoUrl]' value='custom' %s />", $cleansave_options_name, $customChecked ?"checked='checked'":"");
 	printf( "Custom (fully-qualified URL):");
 	printf( "<input type='text'  id='plugin_logoUrl' name='%s[customLogo]' value='%s' /><br>\n", $cleansave_options_name, $customChecked ? $logoUrl : "");
-	printf( "<td>Logo Preview<br /><div style='background-color:#DDD; border: 1px solid #BBB; padding: 10px; text-align:center;'><img height='40px' src='%s'></div></td>", $customChecked ? $logoUrl : $cleansave_def_logo_url);
+	printf( "<td>Logo Preview<br /><div style='background-color:#DDD; border: 1px solid #BBB; padding: 10px; text-align:center;'><img height='40px' src='%s'></div></td>", $customChecked ? $logoUrl : $defLogoUrl);
 	printf("<tr><td  colspan='3'><h2>Button Styles/Locations</h2><hr /></td></tr>");
 }
 
@@ -432,13 +432,14 @@ function cleansave_add_query_vars($vars) {
 
 // Clean up the DB properties
 function cleansave_sanitize_options($options) {
-   $cleansave_def_logo_url = plugins_url('/CleanSave.png',__FILE__);
    global $optionsVersion;
    
    // Map the customLogo into logoUrl
    $logoUrl    = isset($options['logoUrl'])    ? $options['logoUrl']    : null;
    $customLogo = isset($options['customLogo']) ? $options['customLogo'] : null;
-   if (isset($logoUrl) && isset($customLogo) && $logoUrl!=$cleansave_def_logo_url) {
+   $defLogoUrl = plugins_url('/CleanSave.png',__FILE__);
+   
+   if (isset($logoUrl) && isset($customLogo) && $logoUrl!=$defLogoUrl) {
       $options['logoUrl'] = $customLogo;            
    }   
    unset($options['customLogo']);
@@ -612,8 +613,7 @@ function cleansave_wp_head() {
     global $page_id;
     global $cleansave_options_name;
     global $cleansave_loader_url;
-	$cleansave_def_logo_url = plugins_url('/CleanSave.png',__FILE__);
-    global $cleansave_edit_buttons;
+	global $cleansave_edit_buttons;
     global $cleansave_social_buttons;
     global $cleansave_debug;
 
