@@ -3,8 +3,8 @@ Contributors: johncadams, lucascolin
 Donate link: http://www.formatdynamics.com/contact-us
 Tags: pdf, print, printing, kindle, widget, email, save, optimize, output, edit, editing, eco-friendly, environmental, sustainable, reader, iPad, tablet, saving, ecological, eco, ink, social, output, plugin, saver, box, box.net, box.com, dropbox, rtf, readlater, instapaper, cloud, google docs, google drive, google cloud print
 Requires at least: 2.0.2
-Tested up to: 3.9
-Stable tag: 1.4.1
+Tested up to: 3.9.2
+Stable tag: 1.4.2
   
 CleanSave - Save web page content to your Kindle, Box, Google Drive, Dropbox, Google Cloud Print, print, PDF, text and email
 
@@ -44,8 +44,6 @@ Users can easily edit content, save to PDF or a Text file or upload to their Kin
 2. On the navigation on the left hand side, click 'Plugins', then 'Add New' from the menu.
 3. Enable the CleanSave plugin.
 4. Visit the CleanSave Settings page, select the appropriate options and click 'Save Changes'.
-5. To remove ads from CleanSave go to http://www.formatdynamics.com/diypub-adfree and sign up. 
-   Upon receipt of your registration ads will be removed automatically.
 
 
 <h4>Using Your Own Buttons</h4>
@@ -80,7 +78,7 @@ Yes, you can add your own logo in the CleanSave Settings page.  The logo should 
 
 = Can I remove ads from CleanSave? =
 
-Yes, to remove ads from CleanSave go to http://www.formatdynamics.com/diypub-adfree/ and sign up.
+Not at the present time. Ads help us pay the bills. CleanPrint is primarily supported by advertising which allows us to cover costs while offering you content output tools that save paper, ink, money and the environment.
 
 = How do remove the Print, Email and PDF buttons leaving only the Save button? =
 
@@ -102,12 +100,9 @@ This can be tricky depending upon your WordPress knowledge and requires you to s
 
 You have two options:
 <ol>
-   <li>Visit any of our publisher partners, locate an article and press their print button:
-   <ul>
-      <li>http://www.nbcnews.com</li>
-      <li>http://www.cnn.com</li>
-      <li>http://msn.foxsports.com</li>
-      <li>http://www.slate.com</li>
+   <li>Visit our website and try it out:
+   	<ul>
+      <li>http://www.formatdynamics.com/cleanprint-4-0</li>      
    </ul></li>
    <li>Install our free browser tool and try it anywhere yourself.
    <ul>
@@ -119,7 +114,7 @@ You have two options:
 
 Visit us at:
 <ul>
-   <li><a href="http://www.formatdynamics.com">FormatDynamics.com</a></li>
+   <li><a href="http://www.formatdynamics.com/cleanprint-4-0">FormatDynamics.com</a></li>
    <li><a href="http://www.facebook.com/pages/CleanPrint/131304880322920?sk=app_162498273831267">Facebook</a></li>
 </ul>
 
@@ -132,6 +127,10 @@ Visit us at:
 
 
 == Changelog ==
+
+= 1.4.2 =
+* Improved page-load performance
+* Added Page excludes
 
 = 1.4.1 =
 * HTTPS host changes
