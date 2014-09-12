@@ -3,7 +3,7 @@
 Plugin Name: CleanSave
 Plugin URI: http://www.formatdynamics.com
 Description: Save web page content to your Kindle, Box, Google Drive, Dropbox, print, PDF, and email
-Version: 1.4.3
+Version: 1.4.4
 Author: Format Dynamics
 Author URI: http://www.formatdynamics.com
 */
@@ -26,7 +26,7 @@ $cleansave_edit_buttons      = 'group:edit';
 $cleansave_social_buttons    = 'group:share';
 $cleansave_def_btn_style     = 'Btn_white';
 $cleansave_def_btn_placement = 'tr';
-$cleansave_debug             = false;
+$cleansave_post_id_format    = 'post-%s';
 
 
 // Display the options page
@@ -388,7 +388,37 @@ function cleansave_add_settings_field_tags() {
     printf( "<option value='include' %s>Include</option>", ( $isChecked ?"selected='selected'":""));
     printf( "<option value='exclude' %s>Exclude</option>", (!$isChecked ?"selected='selected'":""));
     printf( "</select>");
-    printf( "<i> - i.e. is_tag()</i>");
+    printf( "<br><i> - i.e. is_tag()</i>");
+}
+
+
+function cleansave_add_settings_field_taxs() {
+    global $cleansave_options_name;
+    
+    $options     = get_option($cleansave_options_name);
+    $taxs        = isset($options['TaxsInclude']) ? $options['TaxsInclude'] : null;
+    $isChecked   = !isset($taxs) || $taxs=="include";
+    
+    printf( "<select id='plugin_taxs' name='%s[TaxsInclude]'>", $cleansave_options_name);
+    printf( "<option value='include' %s>Include</option>", ( $isChecked ?"selected='selected'":""));
+    printf( "<option value='exclude' %s>Exclude</option>", (!$isChecked ?"selected='selected'":""));
+    printf( "</select>");
+    printf( "<br><i> - i.e. is_tax()</i>");
+}
+
+
+function cleansave_add_settings_field_others() {
+    global $cleansave_options_name;
+    
+    $options     = get_option($cleansave_options_name);
+    $others      = isset($options['OthersInclude']) ? $options['OthersInclude'] : null;
+    $isChecked   = isset($others) && $others=="include";
+    
+    printf( "<select id='plugin_others' name='%s[OthersInclude]'>", $cleansave_options_name);
+    printf( "<option value='include' %s>Include</option>", ( $isChecked ?"selected='selected'":""));
+    printf( "<option value='exclude' %s>Exclude</option>", (!$isChecked ?"selected='selected'":""));
+    printf( "</select>");
+    printf( "<br><i> - sometimes this helps</i>");
 }
 
 
@@ -418,7 +448,20 @@ function cleansave_add_settings_field_ga() {
 
 	printf( "<input type='radio' id='plugin_gaOption' name='%s[GASetting]' value='false' %s />", $cleansave_options_name, $disabledChecked ?"checked='checked'":"");
 	printf( "Disabled<br /><br />\n");
+	printf("<tr><td colspan='3'><h2>Internal Use Only</h2><hr /></td></tr>");
 }
+
+
+function cleansave_add_settings_field_debug() {
+    global $cleansave_options_name;
+    
+	$options      = get_option($cleansave_options_name);
+	$debug        = isset($options['Debug']) ? $options['Debug'] : null;
+	$debugEnabled = isset($debug) && $debug=="true";
+
+    printf( "<input type='checkbox' id='plugin_debug' name='%s[Debug]' value='true' %s/>", $cleansave_options_name, $debugEnabled  ?"checked='checked'":"");
+}
+
 
 
 function cleansave_add_query_vars($vars) {
@@ -460,28 +503,38 @@ function cleansave_is_pagetype() {
     $posts         = isset($options['PostsInclude'    ]) ? $options['PostsInclude'    ] : null;
     $pages         = isset($options['PagesInclude'    ]) ? $options['PagesInclude'    ] : null;
     $tags          = isset($options['TagsInclude'     ]) ? $options['TagsInclude'     ] : null;
+    $taxs          = isset($options['TaxsInclude'     ]) ? $options['TaxsInclude'     ] : null;
+    $others        = isset($options['OthersInclude'   ]) ? $options['OthersInclude'   ] : null;
     $excludes      = isset($options['PagesExcludes'   ]) ? $options['PagesExcludes'   ] : null;
     
-	if (is_page() && isset($excludes) && isset($page_id)) {
-       $IDs = explode(",", $excludes);
+    if (is_page() && $excludes!=null && isset($page_id)) {
+	   $IDs = explode(",", $excludes);
        foreach ($IDs as $id) {
-          if ($page_id == $id) return false;
+          if ($page_id == $id) {
+             return false;
+          }
        }
     }
  
-    $isHomeChecked = !isset($homepage)  || $homepage =='include';
-    $isFrntChecked = !isset($frontpage) || $frontpage=='include';
-    $isCatgChecked = !isset($category)  || $category =='include';
-    $isPostChecked = !isset($posts)     || $posts    =='include';
-    $isPageChecked = !isset($pages)     || $pages    =='include';
-    $isTagChecked  = !isset($tags)      || $tags     =='include';
+    $isHomeChecked  = $homepage ==null || $homepage =='include';
+    $isFrntChecked  = $frontpage==null || $frontpage=='include';
+    $isCatgChecked  = $category ==null || $category =='include';
+    $isPostChecked  = $posts    ==null || $posts    =='include';
+    $isPageChecked  = $pages    ==null || $pages    =='include';
+    $isTagChecked   = $tags     ==null || $tags     =='include';
+    $isTaxChecked   = $taxs     ==null || $taxs     =='include';
+    $isOtherChecked = $others   !=null && $others   =='include';
     
-    if (is_home()       && $isHomeChecked) return true;
-    if (is_front_page() && $isFrntChecked) return true;              
-    if (is_category()   && $isCatgChecked) return true;
-    if (is_single()     && $isPostChecked) return true;
-    if (is_page()       && $isPageChecked) return true;
-    if (is_tag()        && $isTagChecked ) return true;
+    $isOther        = !is_home() && !is_front_page() && !is_category() && !is_single() && !is_page() && !is_tag() && !is_tax();
+    
+    if ($isOther        && $isOtherChecked) return true;
+    if (is_home()       && $isHomeChecked ) return true;
+    if (is_front_page() && $isFrntChecked ) return true;
+    if (is_category()   && $isCatgChecked ) return true;
+    if (is_single()     && $isPostChecked ) return true;
+    if (is_page()       && $isPageChecked ) return true;
+    if (is_tag()        && $isTagChecked  ) return true;
+    if (is_tax()        && $isTaxChecked  ) return true;
     
     return false;
 }
@@ -492,6 +545,7 @@ function cleansave_add_content($content) {
     global $cleansave_options_name;
 	global $cleansave_def_btn_style;
 	global $cleansave_def_btn_placement;
+	global $cleansave_post_id_format;
 	 	    
 	$options         = get_option($cleansave_options_name);
 	$buttonStyle     = isset($options['buttonStyle']    ) ? $options['buttonStyle']     : null;
@@ -509,7 +563,7 @@ function cleansave_add_content($content) {
     
     
 	if (cleansave_is_pagetype()) {
-		$postId    = isset($post) && isset($post->ID) ? sprintf("'post-%s'",$post->ID) : null;
+		$postId    = isset($post) && isset($post->ID) ? sprintf("'$cleansave_post_id_format'",$post->ID) : null;
 		$imagesUrl = plugins_url("/images",__FILE__);	
 	
 	   	if (!isset($buttonStyle)) {
@@ -558,9 +612,10 @@ function cleansave_add_save_button() {
 	global $post;
     global $cleansave_options_name;
     global $cleansave_def_btn_style;
+    global $cleansave_post_id_format;
 
 	if (cleansave_is_pagetype()) {	 	    
-		$postId      = isset($post) && isset($post->ID) ? sprintf("'post-%s'",$post->ID) : null;
+		$postId      = isset($post) && isset($post->ID) ? sprintf("'$cleansave_post_id_format'",$post->ID) : null;
     	$options     = get_option($cleansave_options_name);
     	$buttonStyle = isset($options['buttonStyle']) ? $options['buttonStyle'] : null; 
     	$imagesUrl   = plugins_url("/images",__FILE__);
@@ -579,6 +634,7 @@ function cleansave_add_button($atts, $content, $tag) {
 	global $post;
     global $cleansave_options_name;
     global $cleansave_def_btn_style;
+    global $cleansave_post_id_format;
 	 	    
     extract( shortcode_atts( array(
 		'save'  => 'true',
@@ -588,7 +644,7 @@ function cleansave_add_button($atts, $content, $tag) {
 	), $atts ) );
 	 	    
 	if (cleansave_is_pagetype()) {
-		$postId      = isset($post) && isset($post->ID) ? sprintf("'post-%s'",$post->ID) : null;
+		$postId      = isset($post) && isset($post->ID) ? sprintf("'$cleansave_post_id_format'",$post->ID) : null;
     	$options     = get_option($cleansave_options_name);
     	$buttonStyle = isset($options['buttonStyle']) ? $options['buttonStyle'] : null;
     	$imagesUrl   = plugins_url("/images",__FILE__);    
@@ -611,15 +667,17 @@ function cleansave_add_button($atts, $content, $tag) {
 // Adds the CleanPrint script tags to the head section
 function cleansave_wp_head() {
     global $page_id;
+    global $post;
     global $cleansave_options_name;
     global $cleansave_loader_url;
 	global $cleansave_edit_buttons;
     global $cleansave_social_buttons;
-    global $cleansave_debug;
 
     $options      = get_option($cleansave_options_name);
 	$GASetting    = isset($options['GASetting']) ? $options['GASetting'] : null;
     $logoUrl      = isset($options['logoUrl'])   ? $options['logoUrl']   : null;
+    $debug        = isset($options['Debug']) ? $options['Debug'] : null;
+	$debugEnabled = isset($debug) && $debug=="true";
 		
     $showPrintBtn = !isset($options['PrintInclude']) || $options['PrintInclude']!='exclude';
     $showPdfBtn   = !isset($options['PDFInclude'  ]) || $options['PDFInclude'  ]!='exclude';
@@ -627,9 +685,9 @@ function cleansave_wp_head() {
     $showSaveBtn  = !isset($options['SaveInclude' ]) || $options['SaveInclude' ]!='exclude';
     $buttons      = '';
 
-	if ($cleansave_debug) {
-		printf("\n\n\n<!-- CleanSave Debug\n\t\t%s\n\t\tpage_id:%s, the_ID:%d, home:%d, front:%d, category:%d, single:%d, page:%d, tag:%d\n-->\n\n\n",
-					               http_build_query($options,"","\n\t\t"), $page_id, the_ID(), is_home(), is_front_page(), is_category(), is_single(), is_page(), is_tag());
+	if ($debugEnabled) {
+	   printf("\n\n\n<!--\n\tCleanSave Debug\n\t\t%s\n\t\tpage_id:$page_id, post->ID:$post->ID, is_home:%d, is_front_page:%d, is_category:%d, is_single:%d, is_page:%d, is_tag:%d, is_tax:%d\n-->\n\n",
+					               http_build_query($options,"","\n\t\t"), is_home(), is_front_page(), is_category(), is_single(), is_page(), is_tag(), is_tax());
 	}
 		
     
@@ -691,7 +749,18 @@ function cleansave_add_action_links($links, $file) {
     global $cleansave_plugin_file;
     
     if ($file == $cleansave_plugin_file) {
-        $links[] = sprintf("<a href='options-general.php?page=%s'>Settings</a>", $cleansave_plugin_name);
+        $links[] = "<a href='options-general.php?page=$cleansave_plugin_name'>Settings</a>";
+	}
+	return $links;
+}
+
+function cleansave_add_meta_links($links, $file) {
+	global $cleansave_plugin_name;
+    global $cleansave_plugin_file;
+    
+    if ($file == $cleansave_plugin_file) {
+        $links[] = "<a href='http://wordpress.org/plugins/$cleansave_plugin_name/faq/'>FAQ</a>";
+        $links[] = "<a href='http://wordpress.org/support/plugin/$cleansave_plugin_name'>Support</a>";
 	}
 	return $links;
 }
@@ -749,8 +818,11 @@ function cleansave_admin_init() {
     add_settings_field     ('plugin_posts',           '<strong>Posts:</strong>',                     'cleansave_add_settings_field_posts',         $cleansave_plugin_name, 'plugin_main');
     add_settings_field     ('plugin_pages',           '<strong>Pages:</strong>',                     'cleansave_add_settings_field_pages',         $cleansave_plugin_name, 'plugin_main');
     add_settings_field     ('plugin_tags',            '<strong>Tags:</strong>',                      'cleansave_add_settings_field_tags',          $cleansave_plugin_name, 'plugin_main');
+    add_settings_field     ('plugin_taxs',            '<strong>Taxonies:</strong>',                  'cleansave_add_settings_field_taxs',          $cleansave_plugin_name, 'plugin_main');
+    add_settings_field     ('plugin_others',          '<strong>Others:</strong>',                    'cleansave_add_settings_field_others',        $cleansave_plugin_name, 'plugin_main');
     add_settings_field     ('plugin_excludes',        '<strong>Excluded Page IDs:</strong>',         'cleansave_add_settings_field_excludes',      $cleansave_plugin_name, 'plugin_main');
     add_settings_field     ('plugin_gaOption',        '<strong>CleanPrint Event Tracking:</strong>', 'cleansave_add_settings_field_ga',            $cleansave_plugin_name, 'plugin_main');
+    add_settings_field     ('plugin_debug',           'debug',                                       'cleansave_add_settings_field_debug',         $cleansave_plugin_name, 'plugin_main');
 }
 
 
@@ -771,7 +843,11 @@ add_action('wp_head',             'cleansave_wp_head', 1);
 
 // Filters
 add_filter('plugin_action_links', 'cleansave_add_action_links', 10, 2);
+add_filter('plugin_row_meta',     'cleansave_add_meta_links',   10, 2 );
 add_filter('the_content',         'cleansave_add_content');
 add_filter('query_vars',          'cleansave_add_query_vars');
+
+// Shortcodes
+add_shortcode('cleansave_button', 'cleansave_add_button');
 
 ?>
