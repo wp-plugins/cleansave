@@ -127,8 +127,9 @@ Visit us at:
 == Changelog ==
 
 = 1.4.4 =
+* Improved ID exclusion
 * Simplifying shortcode config
-* Adding taxonomies 
+* Adding taxonomies
 
 = 1.4.3 =
 * Migrates default logo to new location

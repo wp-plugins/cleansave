@@ -304,8 +304,7 @@ function cleansave_add_settings_field_homepage() {
     printf( "<select id='plugin_homepage' name='%s[HomepageInclude]'>", $cleansave_options_name);
     printf( "<option value='include' %s>Include</option>", ( $isChecked ?"selected='selected'":""));
     printf( "<option value='exclude' %s>Exclude</option>", (!$isChecked ?"selected='selected'":""));
-    printf( "</select>");
-    printf( "<br><i> - i.e. is_home()</i>");  
+    printf( "</select>");  
 }
 
 
@@ -320,7 +319,6 @@ function cleansave_add_settings_field_frontpage() {
     printf( "<option value='include' %s>Include</option>", ( $isChecked ?"selected='selected'":""));
     printf( "<option value='exclude' %s>Exclude</option>", (!$isChecked ?"selected='selected'":""));
     printf( "</select>");
-    printf( "<br><i> - i.e. is_front_page()</i>");
 }
 
 
@@ -335,7 +333,6 @@ function cleansave_add_settings_field_category() {
     printf( "<option value='include' %s>Include</option>", ( $isChecked ?"selected='selected'":""));
     printf( "<option value='exclude' %s>Exclude</option>", (!$isChecked ?"selected='selected'":""));
     printf( "</select>");
-    printf( "<br><i> - i.e. is_category()</i>");
 }
 
 
@@ -350,7 +347,6 @@ function cleansave_add_settings_field_posts() {
     printf( "<option value='include' %s>Include</option>", ( $isChecked ?"selected='selected'":""));
     printf( "<option value='exclude' %s>Exclude</option>", (!$isChecked ?"selected='selected'":""));
     printf( "</select>");
-    printf( "<br><i> - i.e. is_single()</i>");
 }
 
 
@@ -365,7 +361,6 @@ function cleansave_add_settings_field_pages() {
     printf( "<option value='include' %s>Include</option>", ( $isChecked ?"selected='selected'":""));
     printf( "<option value='exclude' %s>Exclude</option>", (!$isChecked ?"selected='selected'":""));
     printf( "</select>");
-    printf( "<br><i> - i.e. is_page()</i>");
 }
 
 
@@ -380,7 +375,6 @@ function cleansave_add_settings_field_tags() {
     printf( "<option value='include' %s>Include</option>", ( $isChecked ?"selected='selected'":""));
     printf( "<option value='exclude' %s>Exclude</option>", (!$isChecked ?"selected='selected'":""));
     printf( "</select>");
-    printf( "<br><i> - i.e. is_tag()</i>");
 }
 
 
@@ -395,7 +389,6 @@ function cleansave_add_settings_field_taxs() {
     printf( "<option value='include' %s>Include</option>", ( $isChecked ?"selected='selected'":""));
     printf( "<option value='exclude' %s>Exclude</option>", (!$isChecked ?"selected='selected'":""));
     printf( "</select>");
-    printf( "<br><i> - i.e. is_tax()</i>");
 }
 
 
@@ -410,7 +403,6 @@ function cleansave_add_settings_field_others() {
     printf( "<option value='include' %s>Include</option>", ( $isChecked ?"selected='selected'":""));
     printf( "<option value='exclude' %s>Exclude</option>", (!$isChecked ?"selected='selected'":""));
     printf( "</select>");
-    printf( "<br><i> - sometimes this helps</i>");
 }
 
 
@@ -497,7 +489,7 @@ function cleansave_is_pagetype() {
     $taxs          = isset($options['TaxsInclude'     ]) ? $options['TaxsInclude'     ] : null;
     $others        = isset($options['OthersInclude'   ]) ? $options['OthersInclude'   ] : null;
     $excludes      = isset($options['PagesExcludes'   ]) ? $options['PagesExcludes'   ] : null;
-    
+        
     if (isset($excludes) && isset($post) && isset($post->ID)) {
 	   $ids = explode(",", $excludes);
        foreach ($ids as $id) {
@@ -506,15 +498,15 @@ function cleansave_is_pagetype() {
           }
        }
     }
- 
-    $isHomeChecked  = $homepage ==null || $homepage =='include';
-    $isFrntChecked  = $frontpage==null || $frontpage=='include';
-    $isCatgChecked  = $category ==null || $category =='include';
-    $isPostChecked  = $posts    ==null || $posts    =='include';
-    $isPageChecked  = $pages    ==null || $pages    =='include';
-    $isTagChecked   = $tags     ==null || $tags     =='include';
-    $isTaxChecked   = $taxs     ==null || $taxs     =='include';
-    $isOtherChecked = $others   !=null && $others   =='include';
+
+    $isHomeChecked  = !isset($homepage)  || $homepage =='include';
+    $isFrntChecked  = !isset($frontpage) || $frontpage=='include';
+    $isCatgChecked  = !isset($category)  || $category =='include';
+    $isPostChecked  = !isset($posts)     || $posts    =='include';
+    $isPageChecked  = !isset($pages)     || $pages    =='include';
+    $isTagChecked   = !isset($tags)      || $tags     =='include';
+    $isTaxChecked   = !isset($taxs)      || $taxs     =='include';
+    $isOtherChecked =  isset($others)    && $others   =='include';
     
     $isOther        = !is_home() && !is_front_page() && !is_category() && !is_single() && !is_page() && !is_tag() && !is_tax();
     
@@ -568,7 +560,6 @@ function cleansave_add_content($content) {
             $buttons .= "<a href=\".\" onClick=\"WpCsCleanPrintPrintHtml($postId);return false\" title=\"Print page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/CleanPrint$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
         }
 
-        
 
         if (isset($buttons)) {
             if ($ButtonPlacement=="tl") {
@@ -583,8 +574,9 @@ function cleansave_add_content($content) {
             } else {
                 $content = sprintf("%s<br /><div style='text-align:right;'>%s</div>", $content, $buttons);
             }
-        }
+        }    
     }
+
 	return $content;
 }
 
@@ -811,17 +803,18 @@ function cleansave_admin_menu() {
 register_activation_hook(__FILE__, 'cleansave_activate');
 
 // Actions
-add_action('admin_init',          'cleansave_admin_init');
-add_action('admin_menu',          'cleansave_admin_menu');
-add_action('wp_head',             'cleansave_wp_head', 1);
+add_action('admin_init',               'cleansave_admin_init');
+add_action('admin_menu',               'cleansave_admin_menu');
+add_action('wp_head',                  'cleansave_wp_head', 1);
 
 // Filters
-add_filter('plugin_action_links', 'cleansave_add_action_links', 10, 2);
-add_filter('plugin_row_meta',     'cleansave_add_meta_links',   10, 2 );
-add_filter('the_content',         'cleansave_add_content');
-add_filter('query_vars',          'cleansave_add_query_vars');
+add_filter('plugin_action_links',      'cleansave_add_action_links', 10, 2);
+add_filter('plugin_row_meta',          'cleansave_add_meta_links',   10, 2);
+add_filter('the_content',              'cleansave_add_content');
+add_filter('query_vars',               'cleansave_add_query_vars');
 
 // Shortcodes
-add_shortcode('cleansave_button', 'cleansave_add_button');
+add_shortcode('cleansave_button',      'cleansave_add_button');
+add_shortcode('cleansave_save_button', 'cleansave_add_save_button');
 
 ?>
