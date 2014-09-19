@@ -4,7 +4,7 @@ Donate link: http://www.formatdynamics.com/contact-us
 Tags: pdf, print, printing, kindle, widget, email, save, optimize, output, edit, editing, eco-friendly, environmental, sustainable, reader, iPad, tablet, saving, ecological, eco, ink, social, output, plugin, saver, box, box.net, box.com, dropbox, rtf, readlater, instapaper, cloud, google docs, google drive, google cloud print
 Requires at least: 2.0.2
 Tested up to: 4.0
-Stable tag: 1.4.3
+Stable tag: 1.4.4
   
 CleanSave - Save web page content to your Kindle, Box, Google Drive, Dropbox, Google Cloud Print, print, PDF, text and email
 
@@ -63,9 +63,7 @@ WordPress documentation found elsewhere:
 
 <h4>Using Shortcode Buttons</h4>
 1. Hide the buttons under Button Styles in the CleanSave Settings page.
-2. Add the shortcode [cleansave_button] to your theme's functions.php file (usually at/near the bottom):
-   <pre>add_shortcode('cleansave_button', 'cleansave_add_button');</pre>
-3. Activate the button(s) in your HTML content, for example to add all 3 buttons:
+2. Activate the button(s) in your HTML content, for example to add all 4 buttons:
    <pre>[cleansave_button save='true' pdf='true' email='true' print='true']</pre>
 
 
@@ -127,6 +125,11 @@ Visit us at:
 
 
 == Changelog ==
+
+= 1.4.4 =
+* Improved ID exclusion
+* Simplifying shortcode config
+* Adding taxonomies
 
 = 1.4.3 =
 * Migrates default logo to new location
