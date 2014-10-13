@@ -3,7 +3,7 @@
 Plugin Name: CleanSave
 Plugin URI: http://www.formatdynamics.com
 Description: Save web page content to your Kindle, Box, Google Drive, Dropbox, print, PDF, and email
-Version: 1.4.4
+Version: 1.4.5
 Author: Format Dynamics
 Author URI: http://www.formatdynamics.com
 */
@@ -493,7 +493,7 @@ function cleansave_is_pagetype() {
     if (isset($excludes) && isset($post) && isset($post->ID)) {
 	   $ids = explode(",", $excludes);
        foreach ($ids as $id) {
-          if ($post->ID == trim($id)) {
+          if ("$post->ID" === trim($id)) {
              return false;
           }
        }
