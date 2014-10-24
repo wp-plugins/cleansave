@@ -4,7 +4,7 @@ Donate link: http://www.formatdynamics.com/contact-us
 Tags: pdf, print, printing, kindle, widget, email, save, optimize, output, edit, editing, eco-friendly, environmental, sustainable, reader, iPad, tablet, saving, ecological, eco, ink, social, output, plugin, saver, box, box.net, box.com, dropbox, rtf, readlater, instapaper, cloud, google docs, google drive, google cloud print
 Requires at least: 2.0.2
 Tested up to: 4.0
-Stable tag: 1.4.5
+Stable tag: 1.4.6
   
 CleanSave - Save web page content to your Kindle, Box, Google Drive, Dropbox, Google Cloud Print, print, PDF, text and email
 
@@ -54,10 +54,10 @@ WordPress documentation found elsewhere:
 1. Hide the buttons under Button Styles in the CleanSave Settings page.
 2. Insert a hyperlink into your page as per the example below:
    <pre>
-      &lt;a href='.' onClick='CleanSave();  return false' title='Save page' &gt;Save&lt;/a&gt;
-      &lt;a href='.' onClick='CleanEmail(); return false' title='Email page'&gt;Email&lt;/a&gt;
-      &lt;a href='.' onClick='CleanPDF();   return false' title='PDF page'  &gt;PDF&lt;/a&gt;
-      &lt;a href='.' onClick='CleanPrint(); return false' title='Print page'&gt;Print&lt;/a&gt;
+      &lt;a href='.' onClick='WpCsCleanSave();             return false' title='Save page' &gt;Save&lt;/a&gt;
+      &lt;a href='.' onClick='WpCsCleanPrintSendEmail();   return false' title='Email page'&gt;Email&lt;/a&gt;
+      &lt;a href='.' onClick='WpCsCleanPrintGeneratePdf(); return false' title='PDF page'  &gt;PDF&lt;/a&gt;
+      &lt;a href='.' onClick='WpCsCleanPrintPrintHtml();   return false' title='Print page'&gt;Print&lt;/a&gt;
    </pre>
 
 
@@ -125,6 +125,9 @@ Visit us at:
 
 
 == Changelog ==
+
+= 1.4.6 =
+* Corrected issue with function names 
 
 = 1.4.5 =
 * Non-standard page excludes
