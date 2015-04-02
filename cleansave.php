@@ -3,7 +3,7 @@
 Plugin Name: CleanSave
 Plugin URI: http://www.formatdynamics.com
 Description: Save web page content to your Kindle, Box, Google Drive, Dropbox, print, PDF, and email
-Version: 1.4.6
+Version: 1.4.7
 Author: Format Dynamics
 Author URI: http://www.formatdynamics.com
 */
@@ -545,19 +545,19 @@ function cleansave_add_content($content) {
 		$imagesUrl = plugins_url("/images",__FILE__);	
 	
 	   	if ($showSaveBtn) {
-            $buttons .= "<a href=\".\" onClick=\"WpCsCleanSave($postId);return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+            $buttons .= "<a href=\".\" onClick=\"WpCsCleanSave($postId);return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/CleanSave$buttonStyle.png\" alt=\"Save page\" style=\"padding:0px 1px;\"/></a>";
         }
 
         if ($showPdfBtn) {
-            $buttons .= "<a href=\".\" onClick=\"WpCsCleanPrintGeneratePdf($postId);return false\" title=\"PDF page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/Pdf$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+            $buttons .= "<a href=\".\" onClick=\"WpCsCleanPrintGeneratePdf($postId);return false\" title=\"PDF page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/Pdf$buttonStyle.png\" alt=\"PDF page\" style=\"padding:0px 1px;\"/></a>";
         }
 
         if ($showEmailBtn) {
-            $buttons .= "<a href=\".\" onClick=\"WpCsCleanPrintSendEmail($postId);return false\" title=\"Email page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/Email$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+            $buttons .= "<a href=\".\" onClick=\"WpCsCleanPrintSendEmail($postId);return false\" title=\"Email page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/Email$buttonStyle.png\" alt=\"Email page\" style=\"padding:0px 1px;\"/></a>";
         }
         
         if ($showPrintBtn) {
-            $buttons .= "<a href=\".\" onClick=\"WpCsCleanPrintPrintHtml($postId);return false\" title=\"Print page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/CleanPrint$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+            $buttons .= "<a href=\".\" onClick=\"WpCsCleanPrintPrintHtml($postId);return false\" title=\"Print page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/CleanPrint$buttonStyle.png\" alt=\"Print page\" style=\"padding:0px 1px;\"/></a>";
         }
 
 
@@ -594,7 +594,7 @@ function cleansave_add_save_button() {
     	$buttonStyle = isset($options['buttonStyle']) ? $options['buttonStyle'] : $cleansave_def_btn_style; 
     	$imagesUrl   = plugins_url("/images",__FILE__);
         
-    	return "<a href=\".\" onClick=\"WpCsCleanSave($postId);return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+    	return "<a href=\".\" onClick=\"WpCsCleanSave($postId);return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/CleanSave$buttonStyle.png\" alt=\"Save page\" style=\"padding:0px 1px;\"/></a>";
 	}
 }
 
@@ -620,10 +620,10 @@ function cleansave_add_button($atts, $content, $tag) {
     	$imagesUrl   = plugins_url("/images",__FILE__);    
     	$rtn         = ""; 
         
-    	if ("{$save}" =="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanSave($postId);            return false\" title=\"Save page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/CleanSave$buttonStyle.png\" style=\"padding:0px 1px;\" /></a>";
-    	if ("{$pdf}"  =="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanPrintGeneratePdf($postId);return false\" title=\"PDF page\"  class=\"cleanprint-exclude\"><img src=\"$imagesUrl/Pdf$buttonStyle.png\" style=\"padding:0px 1px;\"       /></a>";
-    	if ("{$email}"=="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanPrintSendEmail($postId); return false\" title=\"Email page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/Email$buttonStyle.png\" style=\"padding:0px 1px;\"     /></a>";
-    	if ("{$print}"=="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanPrintPrintHtml($postId); return false\" title=\"Print page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/CleanPrint$buttonStyle.png\" style=\"padding:0px 1px;\"/></a>";
+    	if ("{$save}" =="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanSave($postId);            return false\" title=\"Save page\"  class=\"cleanprint-exclude\"><img src=\"$imagesUrl/CleanSave$buttonStyle.png\" alt=\"Save page\"  style=\"padding:0px 1px;\" /></a>";
+    	if ("{$pdf}"  =="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanPrintGeneratePdf($postId);return false\" title=\"PDF page\"   class=\"cleanprint-exclude\"><img src=\"$imagesUrl/Pdf$buttonStyle.png\" alt=\"PDF page\"   style=\"padding:0px 1px;\"       /></a>";
+    	if ("{$email}"=="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanPrintSendEmail($postId);  return false\" title=\"Email page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/Email$buttonStyle.png\"      alt=\"Email page\" style=\"padding:0px 1px;\"     /></a>";
+    	if ("{$print}"=="true") $rtn .= "<a href=\".\" onClick=\"WpCsCleanPrintPrintHtml($postId);  return false\" title=\"Print page\" class=\"cleanprint-exclude\"><img src=\"$imagesUrl/CleanPrint$buttonStyle.png\" alt=\"Print page\" style=\"padding:0px 1px;\"/></a>";
                                                                                                                                                                       
     	return $rtn;
 	}
